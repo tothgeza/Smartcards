@@ -8,7 +8,7 @@ const SignUp = () => {
                 <form className="form-sign">
                     <h1 className="h3 mb-5 fw-normal text-center">Please sign in</h1>
                     <div className="form-floating">
-                        <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                        <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div className="form-floating">

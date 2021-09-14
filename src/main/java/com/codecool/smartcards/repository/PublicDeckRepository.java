@@ -1,6 +1,6 @@
-package com.codecool.Smartcards.repository;
+package com.codecool.smartcards.repository;
 
-import com.codecool.Smartcards.models.PublicDeck;
+import com.codecool.smartcards.models.PublicDeck;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

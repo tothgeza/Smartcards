@@ -1,6 +1,6 @@
-package com.codecool.Smartcards.dto;
+package com.codecool.smartcards.dto;
 
-import com.codecool.Smartcards.models.User;
+import com.codecool.smartcards.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

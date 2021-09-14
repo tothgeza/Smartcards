@@ -1,4 +1,4 @@
-package com.codecool.Smartcards.models;
+package com.codecool.smartcards.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name="cards")
-public class Card {
-
+@Table(name="public_cards")
+public class PublicCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -23,5 +22,4 @@ public class Card {
     String question;
     @Column(nullable = false)
     String answer;
-
 }

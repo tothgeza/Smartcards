@@ -1,4 +1,4 @@
-package com.codecool.Smartcards;
+package com.codecool.smartcards;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

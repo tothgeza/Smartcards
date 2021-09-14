@@ -1,12 +1,12 @@
-package com.codecool.Smartcards.service;
+package com.codecool.smartcards.service;
 
-import com.codecool.Smartcards.models.User;
-import com.codecool.Smartcards.repository.UserRepository;
+import com.codecool.smartcards.models.User;
+import com.codecool.smartcards.repository.UserRepository;
 
 import java.util.List;
 
 //@Service
-public class UserService {
+public class  UserService {
     UserRepository userRepository;
 
 //    @Autowired

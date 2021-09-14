@@ -1,16 +1,17 @@
-package com.codecool.Smartcards.controllers;
+package com.codecool.smartcards.controllers;
 
-import com.codecool.Smartcards.models.Card;
-import com.codecool.Smartcards.models.Deck;
-import com.codecool.Smartcards.models.PublicDeck;
-import com.codecool.Smartcards.models.User;
-import com.codecool.Smartcards.repository.CardRepository;
-import com.codecool.Smartcards.repository.DeckRepository;
-import com.codecool.Smartcards.repository.PublicDeckRepository;
-import com.codecool.Smartcards.repository.UserRepository;
+import com.codecool.smartcards.models.Card;
+import com.codecool.smartcards.models.Deck;
+import com.codecool.smartcards.models.PublicDeck;
+import com.codecool.smartcards.models.User;
+import com.codecool.smartcards.repository.CardRepository;
+import com.codecool.smartcards.repository.DeckRepository;
+import com.codecool.smartcards.repository.PublicDeckRepository;
+import com.codecool.smartcards.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class UserController {
         }
     }
 
+    /*@Secured("ROLE_USER")*/
     @GetMapping("/users/{id}/decks")
     public ResponseEntity<List<Deck>> getAllDecks(@PathVariable("id") long id) {
         try {

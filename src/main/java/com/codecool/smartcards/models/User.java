@@ -1,4 +1,4 @@
-package com.codecool.Smartcards.models;
+package com.codecool.smartcards.models;
 
 import lombok.*;
 import javax.persistence.*;
@@ -29,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+//    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -1,4 +1,4 @@
-package com.codecool.Smartcards.models;
+package com.codecool.smartcards.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

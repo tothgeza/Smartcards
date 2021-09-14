@@ -1,4 +1,4 @@
-package com.codecool.Smartcards;
+package com.codecool.smartcards;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package com.codecool.Smartcards.repository;
+package com.codecool.smartcards.repository;
 
-import com.codecool.Smartcards.models.Card;
-import com.codecool.Smartcards.models.Deck;
-import com.codecool.Smartcards.models.User;
+import com.codecool.smartcards.models.Card;
+import com.codecool.smartcards.models.Deck;
+import com.codecool.smartcards.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
