@@ -82,7 +82,7 @@ const NavBar = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/login" className="nav-link" onClick={logOut}>
+                                    <Link to="/home" className="nav-link" onClick={logOut}>
                                         LogOut
                                     </Link>
                                 </li>
