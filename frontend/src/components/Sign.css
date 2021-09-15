@@ -7,9 +7,9 @@
 } */
 
 .form-sign {
-	width: 100%;
-	max-width: 330px;
-	padding: 15px;
+	/*width: 100%;*/
+	/*max-width: 330px;*/
+	/*padding: 15px;*/
 	margin: auto;
 }
 
@@ -20,9 +20,9 @@
 .form-sign .form-floating:focus-within {
 	z-index: 2;
 }
-.form-sign input {
-	margin-bottom: 25px;
-}
+/*.form-sign input {*/
+/*	margin-bottom: 25px;*/
+/*}*/
 /* .form-sign input[type="text"]:focus,
 .form-sign input[type="email"]:focus,
 .form-sign input[type="password"]:focus {
@@ -47,3 +47,13 @@
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 } */
+
+.profile-img-card {
+	width: 96px;
+	height: 96px;
+	margin: 0 auto 10px;
+	display: block;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
