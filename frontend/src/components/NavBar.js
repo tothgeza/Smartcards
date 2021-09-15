@@ -20,6 +20,9 @@ const NavBar = () => {
 
     const logOut = () => {
         AuthService.logout();
+        setShowModeratorBoard(false);
+        setShowAdminBoard(false);
+        setCurrentUser(undefined);
     };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3" aria-label="Third navbar example">
@@ -28,7 +31,7 @@ const NavBar = () => {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                         aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"/>
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarsExample03">
@@ -79,9 +82,9 @@ const NavBar = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="/login" className="nav-link" onClick={logOut}>
+                                    <Link to="/login" className="nav-link" onClick={logOut}>
                                         LogOut
-                                    </a>
+                                    </Link>
                                 </li>
                             </div>
                         ) : (
