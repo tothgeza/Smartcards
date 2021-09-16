@@ -106,7 +106,7 @@ const Login = (props) => {
                     <div className="mt-5 mb-3">
                         <button className="btn btn-primary w-100" disabled={loading}>
                             {loading && (
-                                <span className="spinner-border spinner-border-sm"></span>
+                                <span className="spinner-border spinner-border-sm"/>
                             )}
                             <span>Login</span>
                         </button>
@@ -118,7 +118,6 @@ const Login = (props) => {
                             </div>
                         </div>
                     )}
-                    {/*<button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>*/}
                     <CheckButton style={{ display: "none" }} ref={checkBtn}/>
                 </Form>
             </div>

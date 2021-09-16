@@ -1,103 +1,63 @@
-import React, {useState, useRef} from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import {isEmail} from "validator";
+import React, {useState, useEffect} from "react";
 
-import AuthService from "../services/auth.service";
+import * as Yup from "yup";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+
 import './Sign.css';
+import AuthService from "../services/auth.service";
 
-const required = (value) => {
-    if (!value) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required!
-            </div>
-        );
-    }
-};
-
-const validEmail = (value) => {
-    if (!isEmail(value)) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                This is not a valid email.
-            </div>
-        );
-    }
-};
-
-const vusername = (value) => {
-    if (value.length < 3 || value.length > 20) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                The username must be between 3 and 20 characters.
-            </div>
-        );
-    }
-};
-
-const vpassword = (value) => {
-    if (value.length < 6 || value.length > 40) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                The password must be between 6 and 40 characters.
-            </div>
-        );
-    }
-};
 const Register = (props) => {
-    const form = useRef();
-    const checkBtn = useRef();
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const validationSchema = Yup.object().shape({
+        username: Yup.string()
+            .required('Username is required')
+            .min(4, 'Username must be at least 4 characters')
+            .max(20, 'Username must not exceed 20 characters'),
+        email: Yup.string()
+            .required('Email is required')
+            .email('Email is invalid'),
+        password: Yup.string()
+            .required('Password is required')
+            .matches(/.*[0-9].*[0-9].*/, 'Password must contains at least 2 digits')
+            .min(6, 'Password must be at least 6 characters')
+            .max(40, 'Password must not exceed 40 characters'),
+        confirmPassword: Yup.string()
+            .required('Confirm Password is required')
+            .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
+        acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
+    });
+
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm({
+        mode: "onChange",
+        resolver: yupResolver(validationSchema)
+    });
+
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
-    };
+    const onSubmit = (data) => {
+        AuthService.register(data.username, data.email, data.password).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+            },
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
 
-    const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
-    };
-
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
-
-    const handleRegister = (e) => {
-        e.preventDefault();
-
-        setMessage("");
-        setSuccessful(false);
-
-        form.current.validateAll();
-
-        if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, email, password).then(
-                (response) => {
-                    setMessage(response.data.message);
-                    setSuccessful(true);
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
-                    setMessage(resMessage);
-                    setSuccessful(false);
-                }
-            );
-        }
+                setMessage(resMessage);
+                setSuccessful(false);
+            })
+        // console.log(JSON.stringify(data, null, 2));
     };
 
     return (
@@ -109,73 +69,98 @@ const Register = (props) => {
                     className="profile-img-card mb-3"
                 />
                 <h1 className="h3 mb-4 fw-normal text-center">Please sign up</h1>
-                <Form className="form-sign mx-3" onSubmit={handleRegister} ref={form}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     {!successful && (
                         <div>
                             <div className="mb-3">
-                                <label className="form-label" for="username">Username</label>
-                                <Input
-                                    type="text"
-                                    className="form-control"
-                                    id="username"
+                                <label className="form-label">Username</label>
+                                <input
                                     name="username"
-                                    value={username}
-                                    onChange={onChangeUsername}
-                                    validations={[required, vusername]}
+                                    type="text"
+                                    {...register('username')}
+                                    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                                 />
+                                {!errors.username &&
+                                <div className="valid-feedback">
+                                    Looks good!
+                                </div>
+                                }
+                                <div className="invalid-feedback">{errors.username?.message}</div>
                             </div>
-                            <div className="mb-3">
-                                <label className="form-label" for="email">Email address</label>
-                                <Input
-                                    type="email"
-                                    className="form-control"
-                                    id="emil"
-                                    name="email"
-                                    value={email}
-                                    onChange={onChangeEmail}
-                                    validations={[required, validEmail]}
-                                />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label" for="password">Password</label>
-                                <Input
-                                    type="password"
-                                    className="form-control"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    onChange={onChangePassword}
-                                    validations={[required, vpassword]}
-                                />
-                            </div>
-                            {/*<div className="mb-3">*/}
-                            {/*    <label className="form-label" for="password2">Password</label>*/}
-                            {/*    <Input*/}
-                            {/*        type="password"*/}
-                            {/*        className="form-control"*/}
-                            {/*        id="password2"*/}
-                            {/*        placeholder="Password"*/}
-                            {/*    />*/}
-                            {/*</div>*/}
 
-                            <div className="mt-5 mb-3">
-                                <button className="btn btn-primary w-100">Sign Up</button>
+                            <div className="mb-3">
+                                <label className="form-label">Email</label>
+                                <input
+                                    name="email"
+                                    type="text"
+                                    {...register('email')}
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+
+                                />
+                                <div className="invalid-feedback">{errors.email?.message}</div>
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label">Password</label>
+                                <input
+                                    name="password"
+                                    type="password"
+                                    {...register('password')}
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                                />
+                                <div className="invalid-feedback">{errors.password?.message}</div>
+                            </div>
+
+                            <div className="mb-3">
+                                <label className="form-label">Confirm Password</label>
+                                <input
+                                    name="confirmPassword"
+                                    type="password"
+                                    {...register('confirmPassword')}
+                                    className={`form-control ${
+                                        errors.confirmPassword ? 'is-invalid' : ''
+                                    }`}
+                                />
+                                <div className="invalid-feedback">
+                                    {errors.confirmPassword?.message}
+                                </div>
+                            </div>
+
+                            <div className="mb-3 form-check">
+                                <input
+                                    name="acceptTerms"
+                                    type="checkbox"
+                                    {...register('acceptTerms')}
+                                    className={`form-check-input ${
+                                        errors.acceptTerms ? 'is-invalid' : ''
+                                    }`}
+                                />
+                                <label htmlFor="acceptTerms" className="form-check-label">
+                                    I have read and agree to the Terms
+                                </label>
+                                <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
+                            </div>
+
+                            <div className="mb-3">
+                                <button type="submit" className="btn btn-primary w-100">
+                                    Sign up
+                                </button>
                             </div>
                         </div>
                     )}
 
                     {message && (
                         <div className="mb-3">
-                            <div className={ successful ? "alert alert-success" : "alert alert-danger"} role="alert">
+                            <div className={`text-center ${successful ? "alert alert-success" : "alert alert-danger"}`}
+                                 role="alert">
                                 {message}
                             </div>
                         </div>
                     )}
-                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
-                </Form>
+                </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default Register
