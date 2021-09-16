@@ -19,7 +19,7 @@ const Register = (props) => {
             .email('Email is invalid'),
         password: Yup.string()
             .required('Password is required')
-            .matches(/.*[0-9].*[0-9].*/, 'Password must contains at least 2 digits')
+            .matches(/.*[A-Z].*[A-Z].*[0-9].*[0-9]/, 'Password must contains at least 2*[A-Z], 2*[0-9]')
             .min(6, 'Password must be at least 6 characters')
             .max(40, 'Password must not exceed 40 characters'),
         confirmPassword: Yup.string()
@@ -69,7 +69,7 @@ const Register = (props) => {
                     className="profile-img-card mb-3"
                 />
                 <h1 className="h3 mb-4 fw-normal text-center">Please sign up</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className="form-sign mx-3">
                     {!successful && (
                         <div>
                             <div className="mb-3">
@@ -126,7 +126,7 @@ const Register = (props) => {
                                 </div>
                             </div>
 
-                            <div className="mb-3 form-check">
+                            <div className="mt-4 mb-3 form-check">
                                 <input
                                     name="acceptTerms"
                                     type="checkbox"
@@ -135,13 +135,13 @@ const Register = (props) => {
                                         errors.acceptTerms ? 'is-invalid' : ''
                                     }`}
                                 />
-                                <label htmlFor="acceptTerms" className="form-check-label">
+                                <label htmlFor="acceptTerms" className="form-check-label text-muted" style={{ fontSize: "14px" }}>
                                     I have read and agree to the Terms
                                 </label>
                                 <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
                             </div>
 
-                            <div className="mb-3">
+                            <div className="mt-5 mb-3">
                                 <button type="submit" className="btn btn-primary w-100">
                                     Sign up
                                 </button>
