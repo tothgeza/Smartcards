@@ -58,7 +58,7 @@ const NavBar = () => {
                             </li>
                         )}
 
-                        {currentUser && (
+                        {currentUser && !showAdminBoard && (
                             <div className="navbar-nav ml-auto">
                                 <li className="nav-item">
                                     <Link to={"/myclass"} className="nav-link">
