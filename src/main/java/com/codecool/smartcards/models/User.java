@@ -43,11 +43,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(targetEntity = Deck.class, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_decks",
+    @OneToMany(targetEntity = MyClass.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_myclasses",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "deck_id", referencedColumnName = "id"))
-    private List<Deck> decks = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "myclass_id", referencedColumnName = "id"))
+    private List<MyClass> myClasses = new ArrayList<>();
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -95,23 +95,23 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Deck> getDecks() {
-        return decks;
+    public List<MyClass> getMyClasses() {
+        return myClasses;
     }
 
-    public void setDecks(List<Deck> decks) {
-        this.decks = decks;
+    public void setMyClasses(List<MyClass> myClasses) {
+        this.myClasses = myClasses;
     }
 
-    public Deck getDeckById(long id) {
-        return decks.stream().filter(d -> d.getId() == id).findFirst().get();
+    public MyClass getMyClassById(long id) {
+        return myClasses.stream().filter(d -> d.getId() == id).findFirst().get();
     }
 
-    public void addDeck(Deck newDeck) {
-        decks.add(newDeck);
+    public void addMyClass(MyClass newMyClass) {
+        myClasses.add(newMyClass);
     }
 
-    public void deleteDeck(long deck_id) {
-        decks = decks.stream().filter(d -> d.getId() != deck_id).collect(Collectors.toList());
+    public void deleteMyClass(long myclass_id) {
+        myClasses = myClasses.stream().filter(c -> c.getId() != myclass_id).collect(Collectors.toList());
     }
 }

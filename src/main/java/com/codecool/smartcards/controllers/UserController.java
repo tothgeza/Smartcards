@@ -1,13 +1,11 @@
 package com.codecool.smartcards.controllers;
 
 import com.codecool.smartcards.models.Card;
+import com.codecool.smartcards.models.MyClass;
 import com.codecool.smartcards.models.Deck;
 import com.codecool.smartcards.models.PublicDeck;
 import com.codecool.smartcards.models.User;
-import com.codecool.smartcards.repository.CardRepository;
-import com.codecool.smartcards.repository.DeckRepository;
-import com.codecool.smartcards.repository.PublicDeckRepository;
-import com.codecool.smartcards.repository.UserRepository;
+import com.codecool.smartcards.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +19,24 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     private final UserRepository userRepository;
     private final DeckRepository deckRepository;
     private final PublicDeckRepository publicDeckRepository;
     private final CardRepository cardRepository;
+    private final MyClassRepository myClassRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository, DeckRepository deckRepository, PublicDeckRepository publicDeckRepository, CardRepository cardRepository) {
+    public UserController(UserRepository userRepository, DeckRepository deckRepository,
+                          PublicDeckRepository publicDeckRepository, CardRepository cardRepository,
+                          MyClassRepository myClassRepository) {
         this.userRepository = userRepository;
         this.deckRepository = deckRepository;
         this.publicDeckRepository = publicDeckRepository;
         this.cardRepository = cardRepository;
+        this.myClassRepository = myClassRepository;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,11 +90,85 @@ public class UserController {
         }
     }
 
-    /*@Secured("ROLE_USER")*/
-    @GetMapping("/users/{id}/decks")
-    public ResponseEntity<List<Deck>> getAllDecks(@PathVariable("id") long id) {
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes")
+    public ResponseEntity<List<MyClass>> getAllClasses(@PathVariable("id") long id) {
         try {
-            List<Deck> decks = new ArrayList<>(userRepository.findAllDecks(id));
+            List<MyClass> classes = new ArrayList<>(userRepository.findAllMyClasses(id));
+            if (classes.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(classes, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/users/{id}/classes")
+    public ResponseEntity<MyClass> createMyClass(@PathVariable("id") long id,
+                                           @RequestBody MyClass newMyClass) {
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            User user = userData.get();
+            user.addMyClass(newMyClass);
+            try {
+                MyClass _myClass = myClassRepository.save(newMyClass);
+                return new ResponseEntity<>(_myClass, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes/{myClass_id}")
+    public ResponseEntity<MyClass> getMyClassById(@PathVariable("myClass_id") long myClass_id,
+                                            @PathVariable("id") long id) {
+        Optional<MyClass> myClassData = userRepository.findMyClass(id, myClass_id);
+        return myClassData.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/users/{id}/classes/{myClass_id}")
+    public ResponseEntity<MyClass> updateMyClass(@PathVariable("id") long id,
+                                           @PathVariable("myClass_id") long myClass_id,
+                                           @RequestBody MyClass updateMyClass) {
+        return userRepository.findMyClass(id, myClass_id)
+                .map(_myClass -> {
+                    _myClass.setTitle(updateMyClass.getTitle());
+                    return new ResponseEntity<>(myClassRepository.save(_myClass), HttpStatus.OK);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/users/{id}/classes/{myClass_id}")
+    public ResponseEntity<HttpStatus> deleteMyClass(@PathVariable("id") long id,
+                                                 @PathVariable("myClass_id") long myClass_id) {
+        Optional<User> userData = userRepository.findById(id);
+        if (userData.isPresent()) {
+            User user = userData.get();
+            user.deleteMyClass(myClass_id);
+            try {
+                myClassRepository.deleteById(myClass_id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes/{myClass_id}/decks")
+    public ResponseEntity<List<Deck>> getAllDecks(@PathVariable("id") long id,
+                                                  @PathVariable("myClass_id") long myClass_id) {
+        try {
+            List<Deck> decks = new ArrayList<>(userRepository.findAllDecks(id, myClass_id));
             if (decks.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             return new ResponseEntity<>(decks, HttpStatus.OK);
@@ -100,13 +177,16 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/{id}/decks")
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/users/{id}/classes/{myClass_id}/decks")
     public ResponseEntity<Deck> createDeck(@PathVariable("id") long id,
-                                              @RequestBody Deck newDeck) {
+                                           @PathVariable("myClass_id") long myClass_id,
+                                           @RequestBody Deck newDeck) {
         Optional<User> userData = userRepository.findById(id);
         if (userData.isPresent()) {
             User user = userData.get();
-            user.addDeck(newDeck);
+            MyClass myClass = user.getMyClassById(myClass_id);
+            myClass.addDeck(newDeck);
             try {
                 Deck _deck = deckRepository.save(newDeck);
                 return new ResponseEntity<>(_deck, HttpStatus.CREATED);
@@ -118,20 +198,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}/decks/{deck_id}")
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}")
     public ResponseEntity<Deck> getDeckById(@PathVariable("deck_id") long deck_id,
-                                               @PathVariable("id") long id) {
-        Optional<Deck> deckData = userRepository.findDeck(id, deck_id);
+                                            @PathVariable("myClass_id") long myClass_id,
+                                            @PathVariable("id") long id) {
+        Optional<Deck> deckData = userRepository.findDeck(id, myClass_id, deck_id);
         return deckData.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
-    @PutMapping("/users/{id}/decks/{deck_id}")
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}")
     public ResponseEntity<Deck> updateDeck(@PathVariable("id") long id,
-                                              @PathVariable("deck_id") long deck_id,
-                                              @RequestBody Deck updateDeck) {
-        return userRepository.findDeck(id, deck_id)
+                                           @PathVariable("myClass_id") long myClass_id,
+                                           @PathVariable("deck_id") long deck_id,
+                                           @RequestBody Deck updateDeck) {
+        return userRepository.findDeck(id, myClass_id, deck_id)
                 .map(_deck -> {
                     _deck.setTitle(updateDeck.getTitle());
                     return new ResponseEntity<>(deckRepository.save(_deck), HttpStatus.OK);
@@ -139,13 +222,16 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/users/{id}/decks/{deck_id}")
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}")
     public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("id") long id,
-                                                    @PathVariable("deck_id") long deck_id) {
+                                                 @PathVariable("myClass_id") long myClass_id,
+                                                 @PathVariable("deck_id") long deck_id) {
         Optional<User> userData = userRepository.findById(id);
         if (userData.isPresent()) {
             User user = userData.get();
-            user.deleteDeck(deck_id);
+            MyClass myClass = user.getMyClassById(myClass_id);
+            myClass.deleteDeck(deck_id);
             try {
                 deckRepository.deleteById(deck_id);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -157,21 +243,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}/decks/{deck_id}/cards")
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}/cards")
     public ResponseEntity<List<Card>> getAllCards(@PathVariable("id") long id,
+                                                  @PathVariable("myClass_id") long myClass_id,
                                                   @PathVariable("deck_id") long deck_id,
                                                   @RequestParam(required = false) String keyword,
                                                   String question, String answer) {
         try {
             List<Card> cards = new ArrayList<>();
             if (keyword != null) {
-                cards.addAll(userRepository.findCardByQuestionAndAnswer(id, deck_id, keyword));
+                cards.addAll(userRepository.findCardByQuestionAndAnswer(id, myClass_id, deck_id, keyword));
             } else if (question != null) {
-                cards.addAll(userRepository.findCardByQuestion(id, deck_id, question));
+                cards.addAll(userRepository.findCardByQuestion(id, myClass_id, deck_id, question));
             } else if (answer != null){
-                cards.addAll(userRepository.findCardByAnswer(id, deck_id, answer));
+                cards.addAll(userRepository.findCardByAnswer(id, myClass_id, deck_id, answer));
             } else {
-                cards.addAll(userRepository.findAllCards(id, deck_id));
+                cards.addAll(userRepository.findAllCards(id, myClass_id, deck_id));
             }
             if (cards.isEmpty()){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -182,11 +270,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/{id}/decks/{deck_id}/cards")
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}/cards")
     public ResponseEntity<Card> createCard(@PathVariable("id") long id,
+                                           @PathVariable("myClass_id") long myClass_id,
                                            @PathVariable("deck_id") long deck_id,
                                            @RequestBody Card newCard) {
-        Optional<Deck> deckData = userRepository.findDeck(id, deck_id);
+        Optional<Deck> deckData = userRepository.findDeck(id, myClass_id, deck_id);
         if (deckData.isPresent()) {
             Deck _deck = deckData.get();
             _deck.addCard(newCard);
@@ -201,22 +291,26 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}/decks/{deck_id}/cards/{card_id}")
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}/cards/{card_id}")
     public ResponseEntity<Card> getCard(@PathVariable("id") long id,
+                                        @PathVariable("myClass_id") long myClass_id,
                                         @PathVariable("deck_id") long deck_id,
                                         @PathVariable("card_id") long card_id) {
-        Optional<Card> cardData = userRepository.findCard(id, deck_id, card_id);
+        Optional<Card> cardData = userRepository.findCard(id, myClass_id, deck_id, card_id);
         return cardData.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/users/{id}/decks/{deck_id}/cards/{card_id}")
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}/cards/{card_id}")
     public ResponseEntity<Card> updateCard(@PathVariable("id") long id,
+                                           @PathVariable("myClass_id") long myClass_id,
                                            @PathVariable("deck_id") long deck_id,
                                            @PathVariable("card_id") long card_id,
                                            @RequestBody Card updateCard) {
-        Optional<Card> cardData = userRepository.findCard(id, deck_id, card_id);
-        return userRepository.findCard(id, deck_id, card_id)
+//        Optional<Card> cardData = userRepository.findCard(id, myClass_id, deck_id, card_id);
+        return userRepository.findCard(id, myClass_id, deck_id, card_id)
                 .map(card -> {
                     card.setQuestion(updateCard.getQuestion());
                     card.setAnswer(updateCard.getAnswer());
@@ -225,11 +319,13 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/users/{id}/decks/{deck_id}/cards/{card_id}")
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/users/{id}/classes/{myClass_id}/decks/{deck_id}/cards/{card_id}")
     public ResponseEntity<HttpStatus> deleteCard(@PathVariable("id") long id,
+                                                 @PathVariable("myClass_id") long myClass_id,
                                                  @PathVariable("deck_id") long deck_id,
                                                  @PathVariable("card_id") long card_id) {
-        Optional<Deck> deckData = userRepository.findDeck(id, deck_id);
+        Optional<Deck> deckData = userRepository.findDeck(id, myClass_id, deck_id);
         if (deckData.isPresent()) {
             Deck _deck = deckData.get();
             _deck.deleteCard(card_id);
@@ -244,6 +340,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/published")
     public ResponseEntity<List<PublicDeck>> getAllDecks(@RequestParam(required = false) String title) {
         try {
