@@ -105,7 +105,16 @@ main {
 	color: #212121 !important;
 	border-left: 5px solid #212121;
 	margin-left: 0;
+	display: flex;
 }
+
+.link-pack:hover + .displayed,
+.link-pack:focus + .displayed {
+	display: flex !important;
+	position: relative;
+	left: -10px;
+}
+
 main {
 	background-color: #fff;
 }
@@ -128,4 +137,13 @@ main {
 .class-link:hover,
 .class-link:focus {
 	color: #212121 !important;
+}
+.notdisplayed {
+	display: none;
+}
+
+.displayed {
+	display: none;
+	/* height: 20px; */
+	/* margin: auto; */
 }

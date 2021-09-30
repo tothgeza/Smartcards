@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 
 import * as Yup from "yup";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import './Sign.css';
 import AuthService from "../services/auth.service";
@@ -31,7 +31,7 @@ const Register = (props) => {
     const {
         register,
         handleSubmit,
-        formState: {errors}
+        formState: { errors }
     } = useForm({
         mode: "onChange",
         resolver: yupResolver(validationSchema)
@@ -62,7 +62,7 @@ const Register = (props) => {
 
     return (
         <div className="col-md-12">
-            <div className="card mx-auto mt-5 p-4" style={{width: "350px"}}>
+            <div className="card mx-auto mt-5 p-4" style={{ width: "350px" }}>
                 <img
                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                     alt="profile-img"
@@ -81,9 +81,9 @@ const Register = (props) => {
                                     className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                                 />
                                 {!errors.username &&
-                                <div className="valid-feedback">
-                                    Looks good!
-                                </div>
+                                    <div className="valid-feedback">
+                                        Looks good!
+                                    </div>
                                 }
                                 <div className="invalid-feedback">{errors.username?.message}</div>
                             </div>
@@ -117,9 +117,8 @@ const Register = (props) => {
                                     name="confirmPassword"
                                     type="password"
                                     {...register('confirmPassword')}
-                                    className={`form-control ${
-                                        errors.confirmPassword ? 'is-invalid' : ''
-                                    }`}
+                                    className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''
+                                        }`}
                                 />
                                 <div className="invalid-feedback">
                                     {errors.confirmPassword?.message}
@@ -131,9 +130,8 @@ const Register = (props) => {
                                     name="acceptTerms"
                                     type="checkbox"
                                     {...register('acceptTerms')}
-                                    className={`form-check-input ${
-                                        errors.acceptTerms ? 'is-invalid' : ''
-                                    }`}
+                                    className={`form-check-input ${errors.acceptTerms ? 'is-invalid' : ''
+                                        }`}
                                 />
                                 <label htmlFor="acceptTerms" className="form-check-label text-muted" style={{ fontSize: "14px" }}>
                                     I have read and agree to the Terms
@@ -152,7 +150,7 @@ const Register = (props) => {
                     {message && (
                         <div className="mb-3">
                             <div className={`text-center ${successful ? "alert alert-success" : "alert alert-danger"}`}
-                                 role="alert">
+                                role="alert">
                                 {message}
                             </div>
                         </div>
