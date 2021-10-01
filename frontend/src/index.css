@@ -133,17 +133,13 @@ main {
 }
 .class-link {
 	color: #4b4b4b !important;
+	text-decoration: none;
 }
 .class-link:hover,
 .class-link:focus {
 	color: #212121 !important;
 }
-.notdisplayed {
-	display: none;
-}
 
-.displayed {
-	display: none;
-	/* height: 20px; */
-	/* margin: auto; */
-}
+/* .class-options:hover {
+	border-bottom: 3px solid #4b4b4b;
+} */

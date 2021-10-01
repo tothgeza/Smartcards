@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
 
@@ -29,9 +29,9 @@ const NavBar = () => {
             <div className="container">
                 <a className="navbar-brand" href="#">SmartCards</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"/>
+                    data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon" />
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarsExample03">
@@ -65,12 +65,12 @@ const NavBar = () => {
                                         My Classes
                                     </Link>
                                 </li>
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <a className="nav-link" href="#">Search Flashcards</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link me-4" href="#">Make Flashcards</a>
-                                </li>
+                                </li> */}
                             </div>
                         )}
 
