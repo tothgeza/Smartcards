@@ -1,10 +1,13 @@
 package com.codecool.smartcards.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="cards")
+@Table(name = "cards")
 public class Card {
 
     @Id
@@ -17,7 +20,10 @@ public class Card {
     @Column(nullable = false)
     private String answer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "deck_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Deck deck;
 
     public Card() {

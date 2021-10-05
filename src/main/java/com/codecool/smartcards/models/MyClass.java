@@ -1,10 +1,13 @@
 package com.codecool.smartcards.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name ="myclasses")
+@Table(name = "myclasses")
 public class MyClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +17,14 @@ public class MyClass {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    public MyClass() {}
+    public MyClass() {
+    }
 
     public MyClass(String title) {
         this.title = title;

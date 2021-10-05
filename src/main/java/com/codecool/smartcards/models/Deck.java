@@ -1,5 +1,8 @@
 package com.codecool.smartcards.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -18,7 +21,11 @@ public class Deck {
     @Column(nullable = false)
     private boolean isPublic = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "myClass_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MyClass myClass;
 
     public Deck() {
