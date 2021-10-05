@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import {IoPersonCircleSharp} from 'react-icons/io5';
+import { useHistory, Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
 
 const NavBar = () => {
+    const history = useHistory();
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -23,6 +25,8 @@ const NavBar = () => {
         setShowModeratorBoard(false);
         setShowAdminBoard(false);
         setCurrentUser(undefined);
+        history.push("/home");
+        window.location.reload();
     };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3" aria-label="Third navbar example">
@@ -76,9 +80,13 @@ const NavBar = () => {
 
                         {currentUser ? (
                             <div className="navbar-nav ml-auto">
+                                <li>
+                                    <IoPersonCircleSharp size="2em"
+                                    style={{position:"relative", top:"4px"}}/>
+                                </li>
                                 <li className="nav-item">
                                     <Link to={"/profile"} className="nav-link">
-                                        {currentUser.username}
+                                         {currentUser.username}
                                     </Link>
                                 </li>
                                 <li className="nav-item">
