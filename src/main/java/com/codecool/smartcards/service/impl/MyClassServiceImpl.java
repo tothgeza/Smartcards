@@ -84,11 +84,17 @@ public class MyClassServiceImpl implements MyClassService {
 
     @Override
     public ResponseEntity<HttpStatus> deleteMyClass(long myClassID) {
-        try {
-            myClassRepository.deleteById(myClassID);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        Optional<MyClass> myClassData = myClassRepository.findById(myClassID);
+        if (myClassData.isPresent()){
+            MyClass myClass = myClassData.get();
+            try {
+                myClassRepository.delete(myClass);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
