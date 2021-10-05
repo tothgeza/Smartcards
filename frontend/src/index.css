@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	color: #4b4b4b;
-	font-family: Roboto;
+	font-family: Roboto, serif;
 	/* -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale; */
 }
@@ -19,7 +19,7 @@ main {
 	display: flex;
 	flex-wrap: nowrap;
 	height: 100vh;
-	height: -webkit-fill-available;
+	/*height: -webkit-fill-available;*/
 	max-height: 100vh;
 	overflow-x: auto;
 	overflow-y: hidden;
