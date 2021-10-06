@@ -34,7 +34,13 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
 
   const fetchMyClass = () => {
     MyClassService.getMyClasses()
-      .then(result => setMyClasses(result.data))
+      .then(function (result) {
+        if (result.status === 200) {
+          setMyClasses(result.data);
+        } else {
+          setMyClasses([]);
+        }
+      })
     ;
   };
 
