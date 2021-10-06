@@ -46,10 +46,7 @@ const MyClasses = () => {
                 setIsActiveMyClass={setIsActiveMyClass}
               />
               <Content
-                currentUser={currentUser}
                 activeMyClass={activeMyClass}
-                setActiveMyClass={setActiveMyClass}
-                setIsActiveMyClass={setIsActiveMyClass}
               />
             </div>
           }
