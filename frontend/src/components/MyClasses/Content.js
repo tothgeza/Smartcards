@@ -1,24 +1,28 @@
 import React, {useEffect, useState} from 'react'
-import {IoAlbumsSharp, IoFolderOpen, IoPencil, IoTrashOutline} from "react-icons/io5";
+import {IoAlbumsSharp, IoPencilSharp, IoTrashOutline} from "react-icons/io5";
+import {GoTrashcan} from "react-icons/go";
 import {Dropdown, Form, Button, InputGroup, FormControl, Modal} from "react-bootstrap";
 import {GoPlus} from "react-icons/go";
+import {IoEye} from "react-icons/io5";
 import DeckService from "../../services/deck.service";
-import ContentHeader from "./ContentHeader";
 import Modals from "./Modals/modals";
+import CardsPreviewModal from "./Modals/CardsPreviewModal";
+import {Link} from "react-router-dom";
+import CardService from "../../services/card.service";
 
 const Content = ({
                    activeMyClass,
-                   setActiveMyClass,
-                   setIsActiveMyClass,
-                   currentUser,
                  }) => {
 
   const [decks, setDecks] = useState([]);
   const [activeDeck, setActiveDeck] = useState("");
 
   const [showCreateDeckModal, setShowCreateDeckModal] = useState(false);
+  const [showDeleteDeckModal, setShowDeleteDeckModal] = useState(false);
   const [isEditDeckTitleActive, setIsEditDeckTitleActive] = useState(false);
-  const [showDeleteDeckCaution, setShowDeleteDeckCaution] = useState(false);
+
+  const [activeCards, setActiveCards] = useState([]);
+  const [showCardsModal, setShowCardsModal] = useState(false);
 
   // Create Deck functions
   const openCreateDeckModal = (event) => {
@@ -26,37 +30,26 @@ const Content = ({
     setShowCreateDeckModal(true);
   }
 
-  const closeCreateDeckModal = () => {
-    setShowCreateDeckModal(false);
-  }
-
   const handleSubmitCreateDeck = async (event) => {
     event.preventDefault();
-    closeCreateDeckModal(event);
+    setShowCreateDeckModal(false);
     const title = event.target.newTitle.value;
     DeckService.createDeck(activeMyClass.id, title)
       .then(result => setActiveDeck(result.data))
   }
 
-  // Delete Deck function
+  // Delete Deck functions
   const openDeleteDeckModal = (event, deck) => {
     event.preventDefault();
-    event.stopPropagation();
     setActiveDeck(deck);
-    setShowDeleteDeckCaution(true);
+    setShowDeleteDeckModal(true);
   }
 
-  const closeDeleteDeckModal = () => {
-    setActiveDeck("");
-    setShowDeleteDeckCaution(false);
-  }
-
-  const handleSubmitDeleteDeck = async (event) => {
+  const handleSubmitDeleteDeck = (event) => {
     event.preventDefault();
-    event.stopPropagation();
-    await DeckService.deleteDeck(activeDeck.id);
-    closeDeleteDeckModal();
-    fetchDecks(activeMyClass.id);
+    DeckService.deleteDeck(activeDeck.id)
+      .then(result => setActiveDeck(""))
+      .then(result => setShowDeleteDeckModal(false));
   }
 
   // Edit Deck Title functions
@@ -70,7 +63,16 @@ const Content = ({
     const newDeckTitle = event.target.newDeckTitle.value;
     DeckService.updateDeck(activeDeck.id, newDeckTitle)
       .then(result => setActiveDeck(result.data))
-    setIsEditDeckTitleActive(false);
+      .then(result => setIsEditDeckTitleActive(false))
+  }
+
+  // Show Cards Modal
+  const showPreviewCardsModal = (event, deck) => {
+    event.preventDefault();
+    console.log("DeckId:" + deck.id)
+    fetchCards(deck)
+    setActiveDeck(deck)
+    setShowCardsModal(true)
   }
 
   useEffect(() => {
@@ -88,8 +90,20 @@ const Content = ({
       })
   }
 
+  const fetchCards = async (deck) => {
+    CardService.getCards(deck.id)
+      .then(function (result) {
+        if (result.status === 200) {
+          setActiveCards(result.data);
+          console.log(result.data);
+        } else {
+          setActiveCards([]);
+        }
+      })
+  }
+
   return (
-    <div>
+    <div >
       <div className="mx-1">
         <div className="row text-center align-items-center"
              style={{
@@ -165,6 +179,11 @@ const Content = ({
                 )}
               </div>
               {/* Edit Deck Dropdown */}
+              <div className="col" style={{maxWidth: "60px"}}>
+                <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
+                  <IoEye/>
+                </Link>
+              </div>
               <div className="col me-3" style={{maxWidth: "60px"}}>
                 <Dropdown style={{backgroundColor: "none"}}>
                   <Dropdown.Toggle id="dropdown-basic" size="sm">
@@ -173,12 +192,17 @@ const Content = ({
                   <Dropdown.Menu>
                     <Dropdown.Item href="#0"
                                    onClick={(event) => showEditDeckTitleForm(event, deck)}>
-                      <IoPencil style={{position: "relative", top: "-2px"}}/> Edit Deck Name
+                      <div className="d-flex flex-row p-0 m-0">
+                        <IoPencilSharp style={{position: "relative", top: "2px"}}/>
+                        <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Edit Deck Name</p>
+                      </div>
                     </Dropdown.Item>
                     <Dropdown.Item href="#0"
                                    onClick={(event) => openDeleteDeckModal(event, deck)}>
-                      <IoTrashOutline
-                        style={{position: "relative", top: "-2px"}}/> Delete this Deck
+                      <div className="d-flex flex-row p-0 m-0">
+                        <GoTrashcan style={{position: "relative", top: "2px"}}/>
+                        <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Delete this Deck</p>
+                      </div>
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -217,7 +241,7 @@ const Content = ({
       <Modals.createModal
         active={activeDeck}
         show={showCreateDeckModal}
-        close={closeCreateDeckModal}
+        setShow={setShowCreateDeckModal}
         submit={handleSubmitCreateDeck}
         type={"Deck"}
       />
@@ -225,10 +249,18 @@ const Content = ({
       {/* Delete Deck modal */}
       <Modals.deleteModal
         active={activeDeck}
-        show={showDeleteDeckCaution}
-        close={closeDeleteDeckModal}
+        show={showDeleteDeckModal}
+        setShow={setShowDeleteDeckModal}
         submit={handleSubmitDeleteDeck}
         type={"Deck"}
+      />
+
+      {/*  Show Cards Modal */}
+      <CardsPreviewModal
+        deck={activeDeck}
+        cards={activeCards}
+        show={showCardsModal}
+        setShow={setShowCardsModal}
       />
     </div>
   )
