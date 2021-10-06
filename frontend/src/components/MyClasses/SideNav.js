@@ -13,10 +13,6 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
     setShowCreateMyClassModal(true);
   }
 
-  const closeCreateMyClassModal = () => {
-    setShowCreateMyClassModal(false);
-  }
-
   const handleClickMyClass = (event, myClass) => {
     event.preventDefault();
     setActiveMyClass(myClass)
@@ -25,7 +21,7 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
 
   const handleSubmitCreateMyClass = async (event) => {
     event.preventDefault();
-    closeCreateMyClassModal(event);
+    setShowCreateMyClassModal(false);
     const title = event.target.newTitle.value;
     await MyClassService.createMyClass(title)
       .then(result => setActiveMyClass(result.data))
@@ -106,7 +102,7 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
       <Modals.createModal
         active={activeMyClass}
         show={showCreateMyClassModal}
-        close={closeCreateMyClassModal}
+        setShow={setShowCreateMyClassModal}
         submit={handleSubmitCreateMyClass}
         type={"Class"}
       />
