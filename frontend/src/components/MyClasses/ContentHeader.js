@@ -1,4 +1,5 @@
-import {IoFolderOpen, IoPencil, IoTrashOutline} from "react-icons/io5";
+import {IoFolderOpen, IoPencil, IoPencilSharp, IoTrashOutline} from "react-icons/io5";
+import {GoTrashcan} from "react-icons/go";
 import {Button, Dropdown, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import MyClassService from "../../services/myClass.service";
@@ -11,19 +12,13 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
 
   const openDeleteMyClassModal = (event) => {
     event.preventDefault();
-    event.stopPropagation();
     setShowDeleteMyClassModal(true);
-  }
-
-  const closeDeleteMyClassModal = () => {
-    setShowDeleteMyClassModal(false);
   }
 
   const handleSubmitDeleteMyClass = async (event) => {
     event.preventDefault();
-    event.stopPropagation();
     await MyClassService.deleteMyClass(activeMyClass.id);
-    closeDeleteMyClassModal()
+    setShowDeleteMyClassModal(false);
     setIsActiveMyClass(false);
     setActiveMyClass("");
   }
@@ -42,7 +37,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
   }
 
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-flex align-items-center mb-3">
       <div className="p-2 m-2 flex-shrink-1">
         <IoFolderOpen size={"6em"}/>
       </div>
@@ -97,6 +92,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
             <div className="col">
             </div>
           </div>
+          {/*<GoTrashcan size={"1.5em"}/>*/}
           {/* <a href="#0" className="me-3">
                     <BsGearFill className="text-muted my-2" size="1.5em" />
                   </a> */}
@@ -107,12 +103,17 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
             <Dropdown.Menu>
               <Dropdown.Item href="#0"
                              onClick={(event) => showEditMyClassTitleForm(event)}>
-                <IoPencil style={{position: "relative", top: "-2px"}}/> Edit Class Name
+                <div className="d-flex flex-row p-0 m-0">
+                  <IoPencilSharp style={{position: "relative", top: "2px"}}/>
+                  <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Edit Class Name</p>
+                </div>
               </Dropdown.Item>
               <Dropdown.Item href="#0"
                              onClick={(event) => openDeleteMyClassModal(event, activeMyClass)}>
-                <IoTrashOutline style={{position: "relative", top: "-2px"}}/>
-                Delete this Class
+                <div className="d-flex flex-row p-0 m-0">
+                  <GoTrashcan style={{position: "relative", top: "2px"}}/>
+                  <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Delete this Class</p>
+                </div>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -127,7 +128,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
       <Modals.deleteModal
         active={activeMyClass}
         show={showDeleteMyClassModal}
-        close={closeDeleteMyClassModal}
+        setShow={setShowDeleteMyClassModal}
         submit={handleSubmitDeleteMyClass}
         type={"Class"}
       />
