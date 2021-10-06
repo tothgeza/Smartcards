@@ -4,6 +4,8 @@ body {
 	font-family: Roboto, serif;
 	/* -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale; */
+	height: 100%;
+	overflow: hidden !important;
 }
 
 code {
@@ -88,5 +90,35 @@ main {
 .class-link:hover,
 .class-link:focus {
 	color: #212121 !important;
+}
+.modal-80w {
+	min-width: 80vw;
+	/*top:5vw;*/
+}
+.modal-70w {
+	min-width: 70vw;
+	/*top:5vw;*/
+}
+.col-border-left {
+	border: 1px solid #ced4da !important;
+}
+.col-border-right {
+	border-top: 1px solid #ced4da !important;
+	border-right: 1px solid #ced4da !important;
+	border-bottom: 1px solid #ced4da !important;
+}
+#deck-content .modal-content {
+	height: 80vh !important;
+	margin: auto;
+	top: 10vh;
+	/*padding: 30px !important;*/
+}
+.modal-backdrop-card {
+	z-index: 1400;
+}
+#card-content .modal-content {
+	height: 60vh !important;
+	top: 22vh;
+	/*padding: 30px !important;*/
 }
 
