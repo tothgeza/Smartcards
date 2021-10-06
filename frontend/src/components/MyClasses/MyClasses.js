@@ -52,8 +52,8 @@ const MyClasses = () => {
           }
         </main>
       ) : (
-        <div className="container">
-          <h2>You don't have permission!</h2>
+        <div className="container text-center">
+          <h2 className="mt-5">Permission denied!</h2>
         </div>
       )
       }
