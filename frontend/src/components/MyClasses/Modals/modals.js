@@ -1,8 +1,7 @@
 import {Modal, Form, FormControl} from "react-bootstrap";
 import React from "react";
 
-
-const deleteModal = ({active, show, close, submit, type}) => {
+const deleteModal = ({active, show, setShow, submit, type}) => {
   const text = (type) => {
     switch (type) {
       case 'Class':
@@ -24,10 +23,14 @@ const deleteModal = ({active, show, close, submit, type}) => {
     }
   }
   return (
-    <Modal show={show}>
+    <Modal
+      show={show}
+      centered
+      onHide={() => setShow(false)}
+    >
       <div className="modal-header d-flex flex-column pb-0" style={{borderBottom: "0 none"}}>
         <button type="button" className="btn-close"
-                onClick={(event) => close(event)}/>
+                onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel"
             style={{display: "block"}}>Caution</h3>
       </div>
@@ -37,7 +40,7 @@ const deleteModal = ({active, show, close, submit, type}) => {
           <button type="button"
                   className="btn btn-primary my-auto col-4"
                   style={{display: "block"}}
-                  onClick={(event) => close(event)}
+                  onClick={() => setShow(false)}
           >Cancel
           </button>
           <a href="#0"
@@ -49,7 +52,7 @@ const deleteModal = ({active, show, close, submit, type}) => {
   )
 }
 
-const createModal = ({show, close, submit, type}) => {
+const createModal = ({show, setShow, submit, type}) => {
   const text = (type) => {
     switch (type) {
       case 'Class':
@@ -69,10 +72,14 @@ const createModal = ({show, close, submit, type}) => {
     }
   }
   return (
-    <Modal show={show}>
+    <Modal
+      show={show}
+      centered
+      onHide={() => setShow(false)}
+    >
       <div className="modal-header d-flex flex-column pb-0" style={{borderBottom: "0 none"}}>
         <button type="button" className="btn-close"
-                onClick={(event) => close(event)}/>
+                onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel" style={{display: "block"}}>
           Create New {type}
         </h3>
@@ -81,7 +88,7 @@ const createModal = ({show, close, submit, type}) => {
         {text(type)}
         <Form className="text-center" onSubmit={(event) => submit(event)}>
           <FormControl className="mb-3 mx-auto" type="text" name="newTitle"
-                 style={{width: "80%", height: "40px", fontSize: "18px"}}/>
+                       style={{width: "80%", height: "40px", fontSize: "18px"}}/>
           <label htmlFor=""
                  style={{fontSize: "12px"}}>Enter the title of your new {type} above</label>
           <button type="submit" className="btn btn-primary mx-auto mt-3 mb-2"
@@ -95,5 +102,5 @@ const createModal = ({show, close, submit, type}) => {
 
 export default {
   deleteModal,
-  createModal
+  createModal,
 }
