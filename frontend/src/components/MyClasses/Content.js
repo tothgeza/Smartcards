@@ -9,6 +9,7 @@ import Modals from "./Modals/modals";
 import CardsPreviewModal from "./Modals/CardsPreviewModal";
 import {Link} from "react-router-dom";
 import CardService from "../../services/card.service";
+import {BsGearFill} from "react-icons/bs";
 
 const Content = ({
                    activeMyClass,
@@ -22,6 +23,7 @@ const Content = ({
   const [isEditDeckTitleActive, setIsEditDeckTitleActive] = useState(false);
 
   const [activeCards, setActiveCards] = useState([]);
+  const [activeCard, setActiveCard] = useState("");
   const [showCardsModal, setShowCardsModal] = useState(false);
 
   // Create Deck functions
@@ -70,14 +72,21 @@ const Content = ({
   const showPreviewCardsModal = (event, deck) => {
     event.preventDefault();
     console.log("DeckId:" + deck.id)
-    fetchCards(deck)
     setActiveDeck(deck)
+    fetchCards(deck)
     setShowCardsModal(true)
   }
 
   useEffect(() => {
     fetchDecks(activeMyClass.id);
   }, [activeMyClass, activeDeck])
+
+  useEffect(() => {
+    if (activeDeck !== "") {
+      console.log("Megy")
+      fetchCards(activeDeck);
+    }
+  }, [activeCard])
 
   const fetchDecks = (myClassId) => {
     DeckService.getDecks(myClassId)
@@ -179,17 +188,18 @@ const Content = ({
                 )}
               </div>
               {/* Edit Deck Dropdown */}
-              <div className="col" style={{maxWidth: "60px"}}>
+              <div className="col" style={{maxWidth: "40px"}}>
                 <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
-                  <IoEye/>
+                  <IoEye size={"1.5em"}/>
                 </Link>
               </div>
-              <div className="col me-3" style={{maxWidth: "60px"}}>
+              <div className="col me-3" style={{maxWidth: "40px"}}>
                 <Dropdown style={{backgroundColor: "none"}}>
-                  <Dropdown.Toggle id="dropdown-basic" size="sm">
-                    Edit
+                  <Dropdown.Toggle id="dropdown-basic" size="sm"
+                                   className="bg-white border-0 p-0">
+                    <BsGearFill className="text-muted my-2 class-link" size="1.5em"/>
                   </Dropdown.Toggle>
-                  <Dropdown.Menu>
+                  <Dropdown.Menu align="">
                     <Dropdown.Item href="#0"
                                    onClick={(event) => showEditDeckTitleForm(event, deck)}>
                       <div className="d-flex flex-row p-0 m-0">
@@ -259,6 +269,8 @@ const Content = ({
       <CardsPreviewModal
         deck={activeDeck}
         cards={activeCards}
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
         show={showCardsModal}
         setShow={setShowCardsModal}
       />
