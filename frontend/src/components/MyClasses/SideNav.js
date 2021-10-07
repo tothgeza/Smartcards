@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {IoAddOutline, IoSearchOutline, IoFolderOpen} from 'react-icons/io5';
 import MyClassService from "../../services/myClass.service";
 import Modals from "./Modals/modals";
@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 
 const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
 
+  const refMyClassLink  = useRef([]);
   const [myClasses, setMyClasses] = useState([]);
   const [showCreateMyClassModal, setShowCreateMyClassModal] = useState(false);
 
@@ -14,8 +15,12 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
     setShowCreateMyClassModal(true);
   }
 
-  const handleClickMyClass = (event, myClass) => {
+  const handleClickMyClass = (event, myClass, index) => {
     event.preventDefault();
+    const currentMyClass = refMyClassLink.current[index];
+    currentMyClass.classList.remove("link-class")
+    currentMyClass.classList.add("link-class-active")
+    console.log(currentMyClass);
     setActiveMyClass(myClass)
     setIsActiveMyClass(true);
   }
@@ -73,8 +78,10 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
         {myClasses.map((myClass, index) => (
           <Link to={"#0"} className="row px-0 py-2 mt-3 link-class"
                 style={{textDecoration: 'none'}}
+                ref={(element) => refMyClassLink.current.push(element)}
+                id={myClass.id}
                 key={myClass.id}
-                onClick={(event) => handleClickMyClass(event, myClass)}>
+                onClick={(event) => handleClickMyClass(event, myClass, index)}>
               <div className="col-1 ms-3"><IoFolderOpen size={"2em"}/></div>
               <div className="col ms-3 my-auto">
                 <p className={"mb-0"} style={{fontSize: "14px", fontWeight: "500"}}>

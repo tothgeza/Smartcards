@@ -98,15 +98,36 @@ main {
 	/*color: #95afc0 !important;*/
 	color: #95afc0 !important;
 	text-decoration: none;
+	text-shadow: 0 -1px 0 #000;
+	/*padding-left: 3px;*/
 }
+/*.link-class:hover,*/
+/*.link-class:focus {*/
+/*	!*color: #535c68 !important;*!*/
+/*	color: #ff9800 !important;*/
+/*	background-color: #f9f3f0;*/
+/*	border-left: 3px solid #ff9800;*/
+/*}*/
+
 .link-class:hover,
 .link-class:focus {
-	/*color: #535c68 !important;*/
-	color: #c3a79a !important;
-	background-color: #f9f3f0;
+	/*color: #212121 !important;*/
+	color: rgb(255, 255, 255) !important;
+	border-left: 3px solid rgb(255, 255, 255);
+	/*margin-left: 0;*/
+	/*display: flex;*/
+}
+
+.link-class:hover + .displayed,
+.link-class:focus + .displayed {
+	display: flex !important;
+	position: relative;
+	left: -15px;
 }
 .link-class-active{
-
+	color: #ff5722 !important;
+	background-color: #f9f3f0;
+	border-left: 3px solid #ff5722;
 }
 .modal-80w {
 	min-width: 80vw;
