@@ -1,6 +1,7 @@
-import {IoFolderOpen, IoPencil, IoPencilSharp, IoTrashOutline} from "react-icons/io5";
+import {IoFolderOpen, IoPencilSharp} from "react-icons/io5";
 import {GoTrashcan} from "react-icons/go";
-import {Button, Dropdown, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
+import {BsGearFill} from "react-icons/bs";
+import {Button, Dropdown, Form, FormControl, InputGroup} from "react-bootstrap";
 import React, {useState} from "react";
 import MyClassService from "../../services/myClass.service";
 import Modals from "./Modals/modals";
@@ -71,7 +72,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
               <p className="my-0" style={{
                 paddingTop: "1px",
                 paddingBottom: "1px", paddingLeft: "1px",
-                fontSize: "2em", color: "#4b4b4b", fontWeight: "500"
+                fontSize: "2em", color: "#505d6a", fontWeight: "500"
               }}
               >{activeMyClass.title}</p>
             </div>
@@ -92,15 +93,12 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
             <div className="col">
             </div>
           </div>
-          {/*<GoTrashcan size={"1.5em"}/>*/}
-          {/* <a href="#0" className="me-3">
-                    <BsGearFill className="text-muted my-2" size="1.5em" />
-                  </a> */}
-          <Dropdown style={{backgroundColor: "none"}}>
-            <Dropdown.Toggle id="dropdown-basic" size="sm">
-              Edit
+          <Dropdown style={{backgroundColor: "white"}}>
+            <Dropdown.Toggle id="dropdown-basic" size="sm" variant={"light"}
+                             className="bg-white border-0 p-0 ">
+                <BsGearFill className="text-muted m-3 class-link" size="1.5em"/>
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{position: "absolute", left:"20px"}}>
               <Dropdown.Item href="#0"
                              onClick={(event) => showEditMyClassTitleForm(event)}>
                 <div className="d-flex flex-row p-0 m-0">
