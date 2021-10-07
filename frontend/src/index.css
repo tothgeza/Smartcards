@@ -82,7 +82,7 @@ main {
 }
 .side-nav {
 	width: 350px;
-	 background: rgb(33, 37, 41);
+	 background: #4D4742;
 	/*background-image: linear-gradient(*/
 	/*		rgba(0, 0, 0, 0.6),*/
 	/*		rgba(0, 0, 0, 0.8)*/
@@ -93,16 +93,20 @@ main {
 	-o-background-size: cover;
 	background-size: cover;
 }
-.class-link {
+.link-class {
 	/*color: #4b4b4b !important;*/
 	/*color: #95afc0 !important;*/
 	color: #95afc0 !important;
 	text-decoration: none;
 }
-.class-link:hover,
-.class-link:focus {
+.link-class:hover,
+.link-class:focus {
 	/*color: #535c68 !important;*/
-	color: #686de0 !important;
+	color: #c3a79a !important;
+	background-color: #f9f3f0;
+}
+.link-class-active{
+
 }
 .modal-80w {
 	min-width: 80vw;

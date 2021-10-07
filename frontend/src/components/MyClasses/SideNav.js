@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {IoAddOutline, IoSearchOutline, IoFolderOpen} from 'react-icons/io5';
 import MyClassService from "../../services/myClass.service";
 import Modals from "./Modals/modals";
+import {Link} from "react-router-dom";
 
 const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
 
@@ -45,45 +46,43 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
   };
 
   return (
-    <div className="flex-shrink-0 p-3 side-nav">
+    <div className="flex-shrink-0 side-nav">
       <div className="d-flex align-items-center pb-3 mb-3 border-bottom justify-content-between">
-        <span className="fs-6">MY CLASSES ({myClasses.length}) </span>
-        <div className="row">
-          <div className="col px-2">
-            {/*Create New MyClass Link*/}
-            <a href="#0"
-               className="class-link"
-               style={{textDecoration: 'none'}}
-               onClick={(event) => openCreateMyClassModal(event)}>
-              <div className="col "><IoAddOutline size={"2em"}/></div>
-            </a>
-          </div>
-          <div className="col px-2">
-            {/*Search Decks Link*/}
-            <a href="#0" className="class-link " style={{textDecoration: 'none'}}>
-              <div className="col "><IoSearchOutline size={"2em"}/></div>
-            </a>
-          </div>
+        <div className="flex-grow-1 align-items-center">
+          <p className={"ms-3 mb-0 fs-6 "}>MY CLASSES ({myClasses.length})</p>
+        </div>
+        <div className="px-2">
+          {/*Create New MyClass Link*/}
+          <Link to="#0"
+                className="link-class"
+                style={{textDecoration: 'none'}}
+                onClick={(event) => openCreateMyClassModal(event)}>
+            <IoAddOutline size={"2em"}/>
+          </Link>
+        </div>
+        <div className="px-2">
+          {/*Search Decks Link*/}
+          <Link to="#0" className="class-link " style={{textDecoration: 'none'}}>
+            <IoSearchOutline size={"2em"}/>
+          </Link>
         </div>
       </div>
 
-      <section className="px-4 mb-5">
-        <ul className="list-unstyled user-packs">
-          {/* List MyClasses*/}
-          {myClasses.map((myClass, index) => (
-            <li className="user-pack row"
-                key={myClass.id}>
-              <a href="#0" className="row col align-items-center link-pack pe-0"
-                 id={index}
-                 style={{textDecoration: 'none'}}
-                 onClick={(event) => handleClickMyClass(event, myClass)}>
-                <div className="pack-icon col-1"><IoFolderOpen size={"2em"}/></div>
-                <div className="col pack-title ms-3 pe-0"
-                     style={{fontSize: "14px", fontWeight: "500"}}>{myClass.title}</div>
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div className="container-fluid">
+        {/* List MyClasses*/}
+        {myClasses.map((myClass, index) => (
+          <Link to={"#0"} className="row px-0 py-2 mt-3 link-class"
+                style={{textDecoration: 'none'}}
+                key={myClass.id}
+                onClick={(event) => handleClickMyClass(event, myClass)}>
+              <div className="col-1 ms-3"><IoFolderOpen size={"2em"}/></div>
+              <div className="col ms-3 my-auto">
+                <p className={"mb-0"} style={{fontSize: "14px", fontWeight: "500"}}>
+                  {myClass.title}
+                </p>
+              </div>
+          </Link>
+        ))}
         <div className={"mt-4"}>
           {/*Create New MyClass Link*/}
           <a href=""
@@ -102,7 +101,7 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
             </div>
           </a>
         </div>
-      </section>
+      </div>
 
       {/* Create new myclass modal */}
       <Modals.createModal
