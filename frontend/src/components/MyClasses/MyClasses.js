@@ -35,7 +35,7 @@ const MyClasses = () => {
             setIsActiveMyClass={setIsActiveMyClass}
           />
           {/* Vertical Divider */}
-          <div className="b-example-divider"/>
+          {/*<div className="b-example-divider"/>*/}
           {
             isActiveMyClass &&
             <div className="w-100 p-2">

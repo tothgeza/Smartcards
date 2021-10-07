@@ -40,22 +40,32 @@ main {
 
 .user-pack {
 	min-height: 2em;
-	margin-bottom: 32px;
+	margin-top: 32px;
 }
 .pack-icon {
 	min-height: 2em;
 }
 
 .link-pack {
-	color: #4b4b4b !important;
+	/*color: #4b4b4b !important;*/
+	color: rgb(204, 204, 204) !important;
 	min-height: 2em;
 	margin-left: 5px;
+}
+.link-sidenav{
+	color: rgb(204, 204, 204)
+}
+.link-sidenav:hover,
+.link-sidenav:focus {
+	color: rgb(255, 255, 255) !important;
+
 }
 
 .link-pack:hover,
 .link-pack:focus {
-	color: #212121 !important;
-	border-left: 5px solid #212121;
+	/*color: #212121 !important;*/
+	color: rgb(255, 255, 255) !important;
+	border-left: 5px solid rgb(255, 255, 255);
 	margin-left: 0;
 	display: flex;
 }
@@ -72,37 +82,40 @@ main {
 }
 .side-nav {
 	width: 350px;
-	/* background: #000; */
-	background-image: linear-gradient(
-			rgba(255, 255, 255, 0.6),
-			rgba(255, 255, 255, 0.6)
-		),
-		url("./img/sidenav4.jpg");
+	 background: rgb(33, 37, 41);
+	/*background-image: linear-gradient(*/
+	/*		rgba(0, 0, 0, 0.6),*/
+	/*		rgba(0, 0, 0, 0.8)*/
+	/*	),*/
+	/*	url("./img/sidenav4.jpg");*/
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 }
 .class-link {
-	color: #4b4b4b !important;
+	/*color: #4b4b4b !important;*/
+	/*color: #95afc0 !important;*/
+	color: #95afc0 !important;
 	text-decoration: none;
 }
 .class-link:hover,
 .class-link:focus {
-	color: #212121 !important;
+	/*color: #535c68 !important;*/
+	color: #686de0 !important;
 }
 .modal-80w {
 	min-width: 80vw;
 	/*top:5vw;*/
 }
 .modal-70w {
-	min-width: 70vw;
+	min-width: 60vw;
 	/*top:5vw;*/
 }
-.col-border-left {
+.card-left-border {
 	border: 1px solid #ced4da !important;
 }
-.col-border-right {
+.card-right-border {
 	border-top: 1px solid #ced4da !important;
 	border-right: 1px solid #ced4da !important;
 	border-bottom: 1px solid #ced4da !important;
@@ -110,7 +123,7 @@ main {
 #deck-content .modal-content {
 	height: 80vh !important;
 	margin: auto;
-	top: 10vh;
+	top: 8vh;
 	/*padding: 30px !important;*/
 }
 .modal-backdrop-card {
@@ -118,7 +131,26 @@ main {
 }
 #card-content .modal-content {
 	height: 60vh !important;
-	top: 22vh;
+	top: 20vh;
 	/*padding: 30px !important;*/
 }
+.navbar {
+	/*background-color: #242a30 !important;*/
+	/*background-color: #384e76 !important;*/
+}
 
+.dropdown-toggle:after {
+	border: 0;
+}
+#dropdown-basic:focus,
+#dropdown-basic:active {
+	outline: none !important;
+	box-shadow: none;
+}
+/*a.dropdown-item:hover {*/
+/*	background-color: #c7ecee !important;*/
+/*}*/
+
+/*a.dropdown-item:active {*/
+/*	background-color: #c7ecee !important;*/
+/*}*/

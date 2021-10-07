@@ -84,10 +84,10 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
             </li>
           ))}
         </ul>
-        <div>
+        <div className={"mt-4"}>
           {/*Create New MyClass Link*/}
           <a href=""
-             className="row align-items-center ms-2 mb-3 class-link"
+             className="row align-items-center ms-2 mb-3 link-sidenav"
              style={{textDecoration: 'none'}}
              onClick={(event) => openCreateMyClassModal(event)}>
             <div className="col-1"><IoAddOutline size={"1.5em"}/></div>
@@ -95,7 +95,7 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
             </div>
           </a>
           {/*Search Decks Link*/}
-          <a href="" className="row align-items-center ms-2 mb-3 class-link"
+          <a href="" className="row align-items-center ms-2 mb-3 link-sidenav"
              style={{textDecoration: 'none'}}>
             <div className="col-1"><IoSearchOutline size={"1.5em"}/></div>
             <div className="col ms-3" style={{fontSize: "12px", fontWeight: "500"}}>Find Flashcards
