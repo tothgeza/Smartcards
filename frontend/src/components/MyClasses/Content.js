@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {IoAlbumsSharp, IoPencilSharp, IoTrashOutline} from "react-icons/io5";
 import {GoTrashcan} from "react-icons/go";
 import {Dropdown, Form, Button, InputGroup, FormControl, Modal} from "react-bootstrap";
-import {GoPlus} from "react-icons/go";
+import {GoPlus, GoPlay} from "react-icons/go";
 import {IoEye} from "react-icons/io5";
 import DeckService from "../../services/deck.service";
 import Modals from "./Modals/modals";
@@ -71,7 +71,6 @@ const Content = ({
   // Show Cards Modal
   const showPreviewCardsModal = (event, deck) => {
     event.preventDefault();
-    console.log("DeckId:" + deck.id)
     setActiveDeck(deck)
     fetchCards(deck)
     setShowCardsModal(true)
@@ -83,7 +82,6 @@ const Content = ({
 
   useEffect(() => {
     if (activeDeck !== "") {
-      console.log("Megy")
       fetchCards(activeDeck);
     }
   }, [activeCard])
@@ -104,7 +102,7 @@ const Content = ({
       .then(function (result) {
         if (result.status === 200) {
           setActiveCards(result.data);
-          console.log(result.data);
+          // setHitCards()
         } else {
           setActiveCards([]);
         }
@@ -112,36 +110,36 @@ const Content = ({
   }
 
   return (
-    <div >
-      <div className="mx-1">
-        <div className="row text-center align-items-center"
-             style={{
-               backgroundColor: "#e6ecf2",
-               height: "3em",
-               fontSize: "13px"
-             }}
-        >
-          <div className="col class-options">
-            <a href="#0" className="class-link">
-              ABOUT
-            </a>
-          </div>
-          <div className="col class-options">
-            <a href="#0" className="class-link">
-              DECKS
-            </a>
-          </div>
-          <div className="col class-options">
-            <a href="#0" className="class-link">
-              Column
-            </a>
-          </div>
-        </div>
-      </div>
+    <div className={"card border-0 rounded-0 mt-4"} >
+      {/*<div className="mx-1">*/}
+      {/*  <div className="row text-center align-items-center"*/}
+      {/*       style={{*/}
+      {/*         backgroundColor: "#e6ecf2",*/}
+      {/*         height: "3em",*/}
+      {/*         fontSize: "13px"*/}
+      {/*       }}*/}
+      {/*  >*/}
+      {/*    <div className="col class-options">*/}
+      {/*      <a href="#0" className="class-link">*/}
+      {/*        ABOUT*/}
+      {/*      </a>*/}
+      {/*    </div>*/}
+      {/*    <div className="col class-options">*/}
+      {/*      <a href="#0" className="class-link">*/}
+      {/*        DECKS*/}
+      {/*      </a>*/}
+      {/*    </div>*/}
+      {/*    <div className="col class-options">*/}
+      {/*      <a href="#0" className="class-link">*/}
+      {/*        Column*/}
+      {/*      </a>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
       {decks.map((deck) => (
-        <div key={deck.id} className="card border-0 border-bottom">
-          <div className="card-body">
+        <div key={deck.id} className="border-0 mx-3">
+          <div className="deck-card card-body border-bottom mx-0 px-1">
             <div className="row align-items-center" style={{paddingTop: "3px"}}>
               <div className="col" style={{maxWidth: "40px"}}>
                 <div className="form-check ">
@@ -149,8 +147,15 @@ const Content = ({
                          id="exampleRadios1" value="option1"/>
                 </div>
               </div>
-              <div className="col" style={{maxWidth: "60px"}}>
-                <IoAlbumsSharp size="2em"/>
+              <div className="col"
+                   style={{maxWidth: "72px"}}
+              >
+                <div className={"p-2"}
+                     // style={{backgroundColor: "#d1c2af"}}
+                >
+                  <IoAlbumsSharp color={"#ffc748"} size="2em"/>
+                  {/*<FcPackage color={"white"} size="2em"/>*/}
+                </div>
               </div>
               <div className="col">
                 {isEditDeckTitleActive && activeDeck.id === deck.id ? (
@@ -187,30 +192,37 @@ const Content = ({
                   </p>
                 )}
               </div>
-              {/* Edit Deck Dropdown */}
+
               <div className="col" style={{maxWidth: "40px"}}>
                 <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
-                  <IoEye size={"1.5em"}/>
+                  <GoPlay className={"link-icon"}/>
                 </Link>
               </div>
+              <div className="col" style={{maxWidth: "40px"}}>
+                <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
+                  <IoEye className={"link-icon"} />
+                </Link>
+              </div>
+              {/* Edit Deck Dropdown */}
               <div className="col me-3" style={{maxWidth: "40px"}}>
                 <Dropdown style={{backgroundColor: "none"}}>
                   <Dropdown.Toggle id="dropdown-basic" size="sm"
                                    className="bg-white border-0 p-0">
-                    <BsGearFill className="text-muted my-2 class-link" size="1.5em"/>
+                    <BsGearFill className="link-icon"/>
                   </Dropdown.Toggle>
                   <Dropdown.Menu align="">
                     <Dropdown.Item href="#0"
                                    onClick={(event) => showEditDeckTitleForm(event, deck)}>
-                      <div className="d-flex flex-row p-0 m-0">
-                        <IoPencilSharp style={{position: "relative", top: "2px"}}/>
+                      <div className="d-flex flex-row p-0 m-0" style={{color:"#757575"}}>
+                        <IoPencilSharp style={{position: "relative",
+                          top: "2px"}}/>
                         <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Edit Deck Name</p>
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item href="#0"
                                    onClick={(event) => openDeleteDeckModal(event, deck)}>
-                      <div className="d-flex flex-row p-0 m-0">
-                        <GoTrashcan style={{position: "relative", top: "2px"}}/>
+                      <div className="d-flex flex-row p-0 m-0" style={{color:"#757575"}}>
+                        <GoTrashcan style={{position: "relative", top: "1px"}}/>
                         <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Delete this Deck</p>
                       </div>
                     </Dropdown.Item>
@@ -223,10 +235,12 @@ const Content = ({
       ))
       }
       {/* Create New Deck Link*/}
-      <a href="#0" className="class-link" onClick={(event) => openCreateDeckModal(event)}>
-        <div className="card border-0">
+      <Link to="#0" className="ms-3 add-deck-link"
+         style={{textDecoration: "none", color: "#FF5722" }}
+         onClick={(event) => openCreateDeckModal(event)}>
+        <div className="card border-0 my-2">
           <div className="card-body">
-            <div className="row align-items-center">
+            <div className="row align-items-center h-100 my-auto">
               <div className="col" style={{maxWidth: "40px"}}>
                 <div>
 
@@ -234,17 +248,18 @@ const Content = ({
               </div>
               <div className="col" style={{maxWidth: "60px"}}>
                 <div style={{width: "20px"}}>
-                  <GoPlus size="2em"/>
+                  <GoPlus size="2em !important" />
                 </div>
               </div>
               <div className="col">
                 <p className="my-auto"
-                   style={{fontSize: "14px", fontWeight: "500"}}>Create New Deck</p>
+                   style={{fontSize: "14px", fontWeight: "500"}}>
+                  Create New Deck</p>
               </div>
             </div>
           </div>
         </div>
-      </a>
+      </Link>
       {/*</div>*/}
 
       {/* Create Deck Modal */}
