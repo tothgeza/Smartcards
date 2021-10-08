@@ -29,7 +29,7 @@ function App() {
                 <Route path="/mod" component={BoardModerator} />
                 <Route path="/admin" component={BoardAdmin} />
             </Switch>
-            <Footer />
+            {/*<Footer />*/}
         </div>
     );
 }
