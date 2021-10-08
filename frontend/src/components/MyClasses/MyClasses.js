@@ -38,7 +38,7 @@ const MyClasses = () => {
           {/*<div className="b-example-divider"/>*/}
           {
             isActiveMyClass &&
-            <div className="w-100 m-2">
+            <div className="w-100 m-5">
               <ContentHeader
                 activeMyClass={activeMyClass}
                 setActiveMyClass={setActiveMyClass}
