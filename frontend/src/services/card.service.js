@@ -4,9 +4,6 @@ import authHeader from "./auth-header";
 const API_URL_CARD = "http://localhost:8080/api/card/";
 
 const getCards = async (deckId) => {
-  console.log("ID: " + deckId)
-  console.log("Start fetching...")
-  console.log("URL: " + API_URL_CARD + "deck/" + deckId)
   return axios.get(API_URL_CARD + "deck/" + deckId, { headers: authHeader() });
 }
 
