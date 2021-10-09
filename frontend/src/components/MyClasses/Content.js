@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {IoAlbumsSharp, IoPencilSharp, IoTrashOutline} from "react-icons/io5";
+import {IoAlbumsSharp, IoPencilSharp} from "react-icons/io5";
 import {GoTrashcan} from "react-icons/go";
 import {Dropdown, Form, Button, InputGroup, FormControl, Modal} from "react-bootstrap";
 import {GoPlus, GoPlay} from "react-icons/go";
@@ -11,9 +11,7 @@ import {Link} from "react-router-dom";
 import CardService from "../../services/card.service";
 import {BsGearFill} from "react-icons/bs";
 
-const Content = ({
-                   activeMyClass,
-                 }) => {
+const Content = ({activeMyClass}) => {
 
   const [decks, setDecks] = useState([]);
   const [activeDeck, setActiveDeck] = useState("");
@@ -24,7 +22,9 @@ const Content = ({
 
   const [activeCards, setActiveCards] = useState([]);
   const [activeCard, setActiveCard] = useState("");
-  const [showCardsModal, setShowCardsModal] = useState(false);
+
+  const [showPreviewCardsModal, setShowPreviewCardsModal] = useState(false);
+  const [keyword, setKeyword] = useState('');
 
   // Create Deck functions
   const openCreateDeckModal = (event) => {
@@ -69,11 +69,17 @@ const Content = ({
   }
 
   // Show Cards Modal
-  const showPreviewCardsModal = (event, deck) => {
+  const openPreviewCardsModal = (event, deck) => {
     event.preventDefault();
     setActiveDeck(deck)
     fetchCards(deck)
-    setShowCardsModal(true)
+    setShowPreviewCardsModal(true)
+  }
+
+  const closePreviewCardsModal = () => {
+    // event.preventDefault();
+    setShowPreviewCardsModal(false)
+    setKeyword('')
   }
 
   useEffect(() => {
@@ -97,12 +103,11 @@ const Content = ({
       })
   }
 
-  const fetchCards = async (deck) => {
+  const fetchCards = (deck) => {
     CardService.getCards(deck.id)
       .then(function (result) {
         if (result.status === 200) {
           setActiveCards(result.data);
-          // setHitCards()
         } else {
           setActiveCards([]);
         }
@@ -110,7 +115,7 @@ const Content = ({
   }
 
   return (
-    <div className={"card border-0 rounded-0 mt-4"} >
+    <div className={"card border-0 rounded-0 mt-4"}>
       {/*<div className="mx-1">*/}
       {/*  <div className="row text-center align-items-center"*/}
       {/*       style={{*/}
@@ -151,7 +156,7 @@ const Content = ({
                    style={{maxWidth: "72px"}}
               >
                 <div className={"p-2"}
-                     // style={{backgroundColor: "#d1c2af"}}
+                  // style={{backgroundColor: "#d1c2af"}}
                 >
                   <IoAlbumsSharp color={"#ffc748"} size="2em"/>
                   {/*<FcPackage color={"white"} size="2em"/>*/}
@@ -194,13 +199,13 @@ const Content = ({
               </div>
 
               <div className="col" style={{maxWidth: "40px"}}>
-                <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
+                <Link to="#0" className="class-link" onClick={(event) => openPreviewCardsModal(event, deck)}>
                   <GoPlay className={"link-icon"}/>
                 </Link>
               </div>
               <div className="col" style={{maxWidth: "40px"}}>
-                <Link to="#0" className="class-link" onClick={(event) => showPreviewCardsModal(event, deck)}>
-                  <IoEye className={"link-icon"} />
+                <Link to="#0" className="class-link" onClick={(event) => openPreviewCardsModal(event, deck)}>
+                  <IoEye className={"link-icon"}/>
                 </Link>
               </div>
               {/* Edit Deck Dropdown */}
@@ -213,15 +218,17 @@ const Content = ({
                   <Dropdown.Menu align="">
                     <Dropdown.Item href="#0"
                                    onClick={(event) => showEditDeckTitleForm(event, deck)}>
-                      <div className="d-flex flex-row p-0 m-0" style={{color:"#757575"}}>
-                        <IoPencilSharp style={{position: "relative",
-                          top: "2px"}}/>
+                      <div className="d-flex flex-row p-0 m-0" style={{color: "#757575"}}>
+                        <IoPencilSharp style={{
+                          position: "relative",
+                          top: "2px"
+                        }}/>
                         <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Edit Deck Name</p>
                       </div>
                     </Dropdown.Item>
                     <Dropdown.Item href="#0"
                                    onClick={(event) => openDeleteDeckModal(event, deck)}>
-                      <div className="d-flex flex-row p-0 m-0" style={{color:"#757575"}}>
+                      <div className="d-flex flex-row p-0 m-0" style={{color: "#757575"}}>
                         <GoTrashcan style={{position: "relative", top: "1px"}}/>
                         <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Delete this Deck</p>
                       </div>
@@ -236,8 +243,8 @@ const Content = ({
       }
       {/* Create New Deck Link*/}
       <Link to="#0" className="ms-3 add-deck-link"
-         style={{textDecoration: "none", color: "#FF5722" }}
-         onClick={(event) => openCreateDeckModal(event)}>
+            style={{textDecoration: "none", color: "#FF5722"}}
+            onClick={(event) => openCreateDeckModal(event)}>
         <div className="card border-0 my-2">
           <div className="card-body">
             <div className="row align-items-center h-100 my-auto">
@@ -248,7 +255,7 @@ const Content = ({
               </div>
               <div className="col" style={{maxWidth: "60px"}}>
                 <div style={{width: "20px"}}>
-                  <GoPlus size="2em !important" />
+                  <GoPlus size="2em !important"/>
                 </div>
               </div>
               <div className="col">
@@ -286,8 +293,10 @@ const Content = ({
         cards={activeCards}
         activeCard={activeCard}
         setActiveCard={setActiveCard}
-        show={showCardsModal}
-        setShow={setShowCardsModal}
+        show={showPreviewCardsModal}
+        closeModal={closePreviewCardsModal}
+        keyword={keyword}
+        setKeyword={setKeyword}
       />
     </div>
   )

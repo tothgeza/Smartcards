@@ -176,18 +176,26 @@ a.dropdown-item:active {
 
 .btn-outline-secondary {
 	background-color: #FF5722;
+	border-color: #FF5722;
 	color: #fff;
 }
 .btn-outline-secondary:focus,
 .btn-outline-secondary:active,
 .btn-outline-secondary:hover {
 	background-color: #E64A19;
+	border-color: #E64A19;
+	outline: none !important;
+	box-shadow: none !important;
+
 }
 .form-control:focus {
 	border-color: #BDBDBD;
+	/*border-color: #FF5722;*/
 	/*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 150, 136, 0.6);*/
 	/*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(99, 165, 162);*/
 	/*box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 7px rgb(208, 110, 79);*/
+	/*border-bottom: 2px solid #FF5722;*/
+	border-bottom-color: #FF5722;
 	box-shadow: none;
 }
 .button#dropdown-basic{

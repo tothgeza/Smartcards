@@ -6,12 +6,9 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import EditCardModal from "./EditCardModal";
 
 
-const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, setShow}) => {
+const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeModal, keyword, setKeyword}) => {
 
   const [showEditCardModal, setShowEditCardModal] = useState(false);
-  const [keyword, setKeyword] = useState('');
-  const [hitCards, setHitCards] = useState([]);
-
 
   const openEditCardModal = (event, card) => {
     event.preventDefault();
@@ -19,63 +16,38 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, setSho
     setShowEditCardModal(true);
   }
 
-  const searching = (word) => {
-    let newCards = [];
-    return cards.map(card => {
-      if (card.question.toLowerCase().includes(word.toLowerCase()) ||
-        card.answer.toLowerCase().includes(word.toLowerCase())) {
-        newCards.push(card);
-        console.log("hitCards: " + newCards[0].question);
-      }
-      setHitCards(newCards);
-    })
-  }
-
-  const handleCardSearch = (event) => {
-    // event.preventDefault();
-    setKeyword(event.target.value);
-    console.log("keyword: " + keyword)
-    searching(event.target.value)
-  }
-
-  useEffect(() => {
-    if(keyword === ''){
-      setHitCards(cards)
-    } else {
-      searching(keyword)
-    }
-  },[cards])
-
   return (
     <div>
-
       <Modal
         id="deck-content"
         show={show}
         scrollable={true}
-        onHide={() => setShow(false)}
+        onHide={() => closeModal()}
         dialogClassName="modal-80w"
         // style={{backgroundColor: "#f6f3f0" }}
       >
         <ModalHeader className="d-flex flex-column px-5 pt-4"
                      style={{borderBottom: "0 none", backgroundColor: "#f6f3f0"}}>
           <button type="button" className="btn-close"
-                  onClick={() => setShow(false)}/>
+                  onClick={() => closeModal()}/>
           <h4 className="modal-title text-center mb-3" id="addClassModalLabel"
               style={{display: "block"}}>
             {deck.title} Flashcards Preview
           </h4>
           <div>
             <FormControl type={"text"} className="mt-3 mb-2 mx-auto px-2"
-                         style={{width: "30vw", fontSize: "14px", color:"#757575"}}
+                         style={{width: "30vw", fontSize: "14px", color: "#757575"}}
                          placeholder={"Search the card.."}
                          defaultValue={keyword}
-                         onChange={(event) => handleCardSearch(event)}/>
+                         onChange={(event) => setKeyword(event.target.value)}/>
           </div>
         </ModalHeader>
         <ModalBody className="px-5 pb-5 pt-0"
                    style={{backgroundColor: "#f6f3f0"}}>
-          {hitCards.map((card, index) => (
+          {cards.filter(card => {
+            return card.question.toLowerCase().includes(keyword.toLowerCase()) ||
+              card.answer.toLowerCase().includes(keyword.toLowerCase())
+          }).map((card, index) => (
             <div className="card shadow-sm border-0 rounded-3 mt-4 py-2" key={card.id}>
               <div className="row g mx-1" key={card.id}>
                 <div className="col my-auto" style={{maxWidth: "40px"}}>

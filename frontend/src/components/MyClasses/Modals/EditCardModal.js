@@ -1,21 +1,16 @@
 import {Form, FormControl, Modal} from "react-bootstrap";
-import React, {useState} from "react";
+import React from "react";
 import CardService from "../../../services/card.service";
 
 
 const EditCardModal = ({show, setShow, activeCard, setActiveCard}) => {
 
   const handleSubmitEditCard = (event, card) => {
-    event.preventDefault();
-    const newQuestion = event.target.newQuestion.value;
-    const newAnswer = event.target.newAnswer.value;
+    event.preventDefault()
+    const newQuestion = event.target.newQuestion.value
+    const newAnswer = event.target.newAnswer.value
     CardService.updateCard(card.id, newQuestion, newAnswer)
       .then((result) => setActiveCard(result.data))
-    closeEditCardModal(event);
-  }
-
-  const closeEditCardModal = (event) => {
-    event.preventDefault();
     setShow(false);
   }
 
@@ -55,7 +50,7 @@ const EditCardModal = ({show, setShow, activeCard, setActiveCard}) => {
                   <div style={{height: "50px"}} className={"text-end pt-2"}>
                     <a href="#0"
                        className=""
-                       onClick={(event) => closeEditCardModal(event)}>Cancel
+                       onClick={() => setShow(false)}>Cancel
                     </a>
                   </div>
                 </div>
