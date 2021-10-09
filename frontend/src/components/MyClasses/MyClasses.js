@@ -3,6 +3,7 @@ import AuthService from "../../services/auth.service";
 import SideNav from "./SideNav";
 import Content from "./Content";
 import ContentHeader from "./ContentHeader";
+import MyClassService from "../../services/myClass.service";
 
 const MyClasses = () => {
 
@@ -12,7 +13,19 @@ const MyClasses = () => {
     decks: []
   });
 
+  const [myClasses, setMyClasses] = useState([]);
   const [isActiveMyClass, setIsActiveMyClass] = useState(false);
+
+  const fetchMyClass = () => {
+    MyClassService.getMyClasses()
+      .then(function (result) {
+        if (result.status === 200) {
+          setMyClasses(result.data)
+        } else {
+          setMyClasses([])
+        }
+      })
+  }
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -33,6 +46,8 @@ const MyClasses = () => {
             activeMyClass={activeMyClass}
             setActiveMyClass={setActiveMyClass}
             setIsActiveMyClass={setIsActiveMyClass}
+            fetchMyClass={fetchMyClass}
+            myClasses={myClasses}
           />
           {/* Vertical Divider */}
           {/*<div className="b-example-divider"/>*/}
@@ -44,6 +59,7 @@ const MyClasses = () => {
                 setActiveMyClass={setActiveMyClass}
                 currentUser={currentUser}
                 setIsActiveMyClass={setIsActiveMyClass}
+                fetchMyClass={fetchMyClass}
               />
               <Content
                 activeMyClass={activeMyClass}

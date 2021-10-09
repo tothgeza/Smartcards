@@ -5,12 +5,9 @@ import Modals from "./Modals/modals";
 import {FcFolder, FcOpenedFolder} from 'react-icons/fc';
 import {Link} from "react-router-dom";
 
-const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
+const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyClass, myClasses}) => {
 
-  const refMyClassLink = useRef([]);
-  const [myClasses, setMyClasses] = useState([]);
   const [showCreateMyClassModal, setShowCreateMyClassModal] = useState(false);
-  const [activeMyClassIndex, setActiveMyClassIndex] = useState(-1);
 
   const openCreateMyClassModal = (event) => {
     event.preventDefault();
@@ -19,16 +16,6 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
 
   const handleClickMyClass = (event, myClass, index) => {
     event.preventDefault();
-    if (activeMyClassIndex > -1) {
-      const previousMyClass = refMyClassLink.current[activeMyClassIndex];
-      previousMyClass.classList.remove("link-myClass-active")
-      previousMyClass.classList.add("link-myClass")
-      setActiveMyClassIndex(-1);
-    }
-    const currentMyClass = refMyClassLink.current[index];
-    currentMyClass.classList.remove("link-myClass")
-    currentMyClass.classList.add("link-myClass-active")
-    setActiveMyClassIndex(index);
     setActiveMyClass(myClass)
     setIsActiveMyClass(true);
   }
@@ -40,23 +27,12 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
     await MyClassService.createMyClass(title)
       .then(result => setActiveMyClass(result.data))
       .then(() => setIsActiveMyClass(true));
+    fetchMyClass()
   }
 
   useEffect(() => {
     fetchMyClass()
-  }, [activeMyClass])
-
-  const fetchMyClass = () => {
-    MyClassService.getMyClasses()
-      .then(function (result) {
-        if (result.status === 200) {
-          setMyClasses(result.data);
-        } else {
-          setMyClasses([]);
-        }
-      })
-    ;
-  };
+  }, [])
 
   return (
     <div className="flex-shrink-0 side-nav">
@@ -85,12 +61,12 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass}) => {
       <div className="container-fluid">
         {/* List MyClasses*/}
         {myClasses.map((myClass, index) => (
-          <Link to={"#0"} className="row ps-3 pe-0 link-myClass"
+          <Link to={"#0"}
+                className={`row ps-3 pe-0" ${activeMyClass.id === myClass.id ? 'link-myClass-active' : 'link-myClass'}`}
                 style={{textDecoration: 'none'}}
-                ref={(element) => refMyClassLink.current.push(element)}
-                id={myClass.id}
+            // id={myClass.id}
                 key={myClass.id}
-                onClick={(event) => handleClickMyClass(event, myClass, index)}>
+                onClick={(event) => handleClickMyClass(event, myClass)}>
             <div className="col-1 ms-3 class-icon">
               {activeMyClass.id === myClass.id ? (
                 <FcOpenedFolder size={"2em"}/>

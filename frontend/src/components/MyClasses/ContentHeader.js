@@ -1,4 +1,4 @@
-import {IoFolderOpen, IoPencilSharp} from "react-icons/io5";
+import {IoPencilSharp} from "react-icons/io5";
 import {GoTrashcan} from "react-icons/go";
 import {BsGearFill} from "react-icons/bs";
 import {FcOpenedFolder} from "react-icons/fc";
@@ -7,7 +7,7 @@ import React, {useState} from "react";
 import MyClassService from "../../services/myClass.service";
 import Modals from "./Modals/modals";
 
-const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiveMyClass}) => {
+const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiveMyClass, fetchMyClass}) => {
 
   const [isEditMyClassTitleActive, setIsEditMyClassTitleActive] = useState(false);
   const [showDeleteMyClassModal, setShowDeleteMyClassModal] = useState(false);
@@ -20,6 +20,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
   const handleSubmitDeleteMyClass = async (event) => {
     event.preventDefault();
     await MyClassService.deleteMyClass(activeMyClass.id);
+    fetchMyClass()
     setShowDeleteMyClassModal(false);
     setIsActiveMyClass(false);
     setActiveMyClass("");
