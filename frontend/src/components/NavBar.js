@@ -29,7 +29,7 @@ const NavBar = () => {
         window.location.reload();
     };
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3" aria-label="Third navbar example">
+        <nav className="navbar navbar-expand-lg py-3" aria-label="Third navbar example">
             <div className="container">
                 <a className="navbar-brand" href="#">SmartCards</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

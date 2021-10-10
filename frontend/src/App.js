@@ -17,7 +17,7 @@ import BoardAdmin from "./components/BoardAdmin";
 function App() {
 
     return (
-        <div className="d-flex flex-column vh-100">
+        <div>
             <NavBar />
             <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />

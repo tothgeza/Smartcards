@@ -36,10 +36,7 @@ const MyClasses = () => {
   }, [])
 
   return (
-    <div style={{
-      height: "100vh",
-      overflowY: "hidden"
-    }}>
+    <div>
       {isUserLoggedIn ? (
         <main>
           <SideNav
