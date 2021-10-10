@@ -1,0 +1,74 @@
+.carousel-indicators > button {
+    display: block;
+    border-radius: 50% ;
+    width: 20px !important;
+    height: 20px !important;
+    /*margin-top: 10px;*/
+    padding: 0 5px;
+    margin-bottom: 0;
+    border: none;
+    z-index: 100;
+}
+.carousel-indicators{
+    position: absolute !important;
+    display: block;
+    bottom: 40% !important;
+    margin: 0;
+    /*right: 5%;*/
+    left: 95% !important;
+    /*display: ;*/
+}
+
+.home_sect {
+    position: relative;
+    margin-top: -3px;
+}
+/*.home_sect .container-fluid {*/
+/*	position: relative;*/
+/*}*/
+.home_sect .over_content {
+    position: absolute;
+    margin: auto;
+    top: 40%;
+    right: 0;
+    left: 0;
+    width: 90%;
+}
+.home_sect .play-pause {
+    position: absolute;
+    top: 62%;
+    left: 94.8%;
+    width: 95%;
+    z-index: 100;
+}
+.home_sect .carousel-inner .carousel-item .img-fluid {
+    width: 100%;
+    position: relative;
+}
+.home_sect .carousel-inner .carousel-item .img_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    background: -webkit-linear-gradient(
+            /*135deg,*/
+            /*rgb(0, 0, 0) 0%,*/
+            /*rgb(245, 248, 253) 100%*/
+            135deg,
+            rgb(65, 65, 102) 0%,
+            rgb(65, 65, 102) 100%
+    );
+    opacity: 0.7;
+}
+.over_content h1{
+    color: #fff;
+    font-size: 8vmin;
+    font-weight: 900;
+}
+.over_content p{
+    color: #fff;
+    font-size: calc(12px + 1vmin);;
+    margin-top: 20px;
+    /*font-weight: 500;*/
+}
