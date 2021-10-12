@@ -1,30 +1,34 @@
 import React, {useEffect, useState} from 'react'
-import {IoAlbumsSharp, IoPencilSharp} from "react-icons/io5";
-import {GoTrashcan} from "react-icons/go";
-import {Dropdown, Form, Button, InputGroup, FormControl, Modal} from "react-bootstrap";
-import {GoPlus, GoPlay} from "react-icons/go";
-import {IoEye} from "react-icons/io5";
+import {Link} from "react-router-dom";
+import {Dropdown, Form, Button, InputGroup, FormControl} from "react-bootstrap";
+
 import DeckService from "../../services/deck.service";
+import CardService from "../../services/card.service";
+
 import Modals from "./Modals/modals";
 import CardsPreviewModal from "./Modals/CardsPreviewModal";
-import {Link} from "react-router-dom";
-import CardService from "../../services/card.service";
+import StudyModal from "./Modals/StudyModal";
+
+import {IoAlbumsSharp, IoPencilSharp, IoEye} from "react-icons/io5";
+import {GoPlus, GoPlay, GoTrashcan} from "react-icons/go";
 import {BsGearFill} from "react-icons/bs";
 
 const Content = ({activeMyClass}) => {
 
   const [decks, setDecks] = useState([]);
-  const [activeDeck, setActiveDeck] = useState("");
+  const [activeDeck, setActiveDeck] = useState({});
 
   const [showCreateDeckModal, setShowCreateDeckModal] = useState(false);
   const [showDeleteDeckModal, setShowDeleteDeckModal] = useState(false);
   const [isEditDeckTitleActive, setIsEditDeckTitleActive] = useState(false);
 
   const [activeCards, setActiveCards] = useState([]);
-  const [activeCard, setActiveCard] = useState("");
+  const [activeCard, setActiveCard] = useState({});
 
   const [showPreviewCardsModal, setShowPreviewCardsModal] = useState(false);
   const [keyword, setKeyword] = useState('');
+
+  const [showStudyModal, setShowStudyModal] = useState(false);
 
   // Create Deck functions
   const openCreateDeckModal = (event) => {
@@ -81,6 +85,21 @@ const Content = ({activeMyClass}) => {
     setShowPreviewCardsModal(false)
     setKeyword('')
   }
+  // Show Study Modal
+  const openStudyCardsModal = async (event, deck) => {
+    event.preventDefault();
+    await setActiveDeck(deck)
+    console.log("Start fetch..")
+    await fetchCards(deck)
+    setShowStudyModal(true)
+    console.log("Show study modal..")
+  }
+
+  const closeStudyModal = (event) => {
+    event.preventDefault();
+    setShowStudyModal(false);
+    setActiveDeck('')
+  }
 
   useEffect(() => {
     fetchDecks(activeMyClass.id);
@@ -107,6 +126,7 @@ const Content = ({activeMyClass}) => {
     CardService.getCards(deck.id)
       .then(function (result) {
         if (result.status === 200) {
+          console.log(result.data)
           setActiveCards(result.data);
         } else {
           setActiveCards([]);
@@ -199,7 +219,7 @@ const Content = ({activeMyClass}) => {
               </div>
 
               <div className="col" style={{maxWidth: "40px"}}>
-                <Link to="#0" className="class-link" onClick={(event) => openPreviewCardsModal(event, deck)}>
+                <Link to="#0" className="class-link" onClick={(event) => openStudyCardsModal(event, deck)}>
                   <GoPlay className={"link-icon"}/>
                 </Link>
               </div>
@@ -298,7 +318,14 @@ const Content = ({activeMyClass}) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
+    <StudyModal
+      cards={activeCards}
+      show={showStudyModal}
+      close={closeStudyModal}
+      deck={activeDeck}
+    />
     </div>
+
   )
 }
 

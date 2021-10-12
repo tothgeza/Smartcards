@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 const Home = () => {
   const [content, setContent] = useState("");
   const [index, setIndex] = useState(0);
-  const [pause, setPause] = useState(true);
+  const [pause, setPause] = useState(false);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
@@ -42,10 +42,9 @@ const Home = () => {
             autoPlay={true}
             activeIndex={index}
             onSelect={handleSelect}
-            interval={pause ? null : 2000}
+            interval={pause ? null : 4000}
             controls={false}
             pause={false}
-            id="sampleSlide"
           >
             <Carousel.Item>
               <img
@@ -65,6 +64,8 @@ const Home = () => {
               />
               <div className={"img_overlay"}/>
               <Carousel.Caption>
+                <h3 style={{color:"blue !important"}} >First slide label</h3>
+                <p style={{color:"black !important"}}>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -81,9 +82,9 @@ const Home = () => {
           <div className={"play-pause"}>
             <Link to={"#0"} onClick={() => setPause(!pause)}>
               {pause ? (
-                <IoPlay size={"2em"}/>
+                <IoPlay size={"1em"} className={"link-icon"}/>
               ) : (
-                <IoPause size={"2em"}/>
+                <IoPause size={"1em"} className={"link-icon"}/>
               )}
             </Link>
           </div>

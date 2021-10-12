@@ -36,8 +36,8 @@
 }
 .home_sect .play-pause {
     position: absolute;
-    top: 62%;
-    left: 94.8%;
+    top: 61%;
+    left: 95.1%;
     width: 95%;
     z-index: 100;
 }
@@ -60,6 +60,9 @@
             rgb(65, 65, 102) 100%
     );
     opacity: 0.7;
+}
+.carousel-item {
+    transition-duration: 2s;
 }
 .over_content h1{
     color: #fff;

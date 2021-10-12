@@ -1,0 +1,38 @@
+/* animatiopn */
+
+.fade-enter .my-card {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.fade-enter-active .my-card {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit .my-card {
+    opacity: 1;
+    transform: translateX(0%);
+}
+.fade-exit-active .my-card {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.fade-enter-active .my-card,
+.fade-exit-active .my-card {
+    transition: opacity 300ms, transform 500ms;
+}
+.flex-grow-1{
+    padding: 10px !important;
+}
+
+
+
+@media (max-width: 960px) {
+    .study-sidebar {
+        display: none;
+    }
+    /*.container-sm {*/
+    /*    margin-right: 0 !important;*/
+    /*    margin-left: 0 !important;*/
+    /*    width: 100% !important;*/
+    /*}*/
+}
