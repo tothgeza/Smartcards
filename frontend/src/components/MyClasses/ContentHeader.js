@@ -6,6 +6,7 @@ import {Button, Dropdown, Form, FormControl, InputGroup} from "react-bootstrap";
 import React, {useState} from "react";
 import MyClassService from "../../services/myClass.service";
 import Modals from "./Modals/modals";
+import "./contentheader.css"
 
 const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiveMyClass, fetchMyClass}) => {
 
@@ -40,15 +41,10 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
   }
 
   return (
-    <div className={"card border-0 rounded-0 mt-0"}>
+    <div className={"card border-0 rounded-0 mt-0 mb-5 shadow-sm"}>
       <div className="d-flex">
-        <div className="flex-shrink-1 m-3 p-4 "
-             style={{backgroundColor: "#d1c2af"}}
-             // style={{backgroundColor: "#716967"}}
-        >
-          {/*<IoFolderOpen*/}
+        <div className="flex-shrink-1 m-3 p-4 ">
           <FcOpenedFolder
-            color={"#dca557"}
             size={"6em"}/>
         </div>
         <div className="d-flex flex-column flex-fill mt-3">
@@ -102,17 +98,15 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
               <div className="col">
               </div>
             </div>
-            <Dropdown className="m-0">
-              <Dropdown.Toggle id="dropdown-basic" size="sm" variant={"light"}
-                               className="bg-white border-0 p-0"
-              style={{position: "relative", left:"-15px", top:"-3px"}}>
-                <BsGearFill className="text-muted m-3 link-icon"/>
+            <Dropdown className="m-0 mt-1 p-0" style={{maxHeight: "30px"}}>
+              <Dropdown.Toggle id="dropdown-basic" size="sm" className="border-0 p-0">
+                <BsGearFill className="link-icon" size={"1.5em"}/>
               </Dropdown.Toggle>
-              <Dropdown.Menu style={{position: "absolute", left: "20px"}}>
+              <Dropdown.Menu>
                 <Dropdown.Item href="#0"
                                onClick={(event) => showEditMyClassTitleForm(event)}>
                   <div className="d-flex flex-row p-0 m-0"
-                  style={{color:"#757575"}}>
+                       style={{color: "#757575"}}>
                     <IoPencilSharp style={{position: "relative", top: "2px"}}/>
                     <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Edit Class Name</p>
                   </div>
@@ -120,7 +114,7 @@ const ContentHeader = ({activeMyClass, setActiveMyClass, currentUser, setIsActiv
                 <Dropdown.Item href="#0"
                                onClick={(event) => openDeleteMyClassModal(event, activeMyClass)}>
                   <div className="d-flex flex-row p-0 m-0"
-                       style={{color:"#757575"}}>
+                       style={{color: "#757575"}}>
                     <GoTrashcan style={{position: "relative", top: "1px"}}/>
                     <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Delete this Class</p>
                   </div>

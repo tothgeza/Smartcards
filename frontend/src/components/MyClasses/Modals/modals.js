@@ -1,5 +1,6 @@
 import {Modal, Form, FormControl} from "react-bootstrap";
 import React from "react";
+import "./modals.css"
 
 const deleteModal = ({active, show, setShow, submit, type}) => {
   const text = (type) => {
@@ -25,18 +26,18 @@ const deleteModal = ({active, show, setShow, submit, type}) => {
   return (
     <Modal
       show={show}
-      centered
       onHide={() => setShow(false)}
+      dialogClassName="modal-position"
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor:"#f6f3f0"}}>
+           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel"
             style={{display: "block"}}>Caution</h3>
       </div>
       <div className="modal-body"
-           style={{backgroundColor:"#f6f3f0"}}>
+           style={{backgroundColor:"#ECF6FF"}}>
         {text(type)}
         <div className="row text-center justify-content-md-center mt-4 mb-3">
           <button type="button"
@@ -76,11 +77,11 @@ const createModal = ({show, setShow, submit, type}) => {
   return (
     <Modal
       show={show}
-      centered
       onHide={() => setShow(false)}
+      dialogClassName="modal-position"
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor:"#f6f3f0"}}>
+           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel" style={{display: "block"}}>
@@ -88,7 +89,7 @@ const createModal = ({show, setShow, submit, type}) => {
         </h3>
       </div>
       <div className="modal-body"
-           style={{borderBottom: "0 none", backgroundColor:"#f6f3f0"}}>
+           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
         {text(type)}
         <Form className="text-center" onSubmit={(event) => submit(event)}>
           <FormControl className="mb-3 mx-auto" type="text" name="newTitle"

@@ -25,6 +25,26 @@
 }
 
 
+.show-button{ background: #FF5722;
+    border-color: #FF5722 !important;
+}
+.show-button:hover,
+.show-button:active,
+.show-button:visited,
+.show-button:focus{
+    background: #FF5722;
+    border-color: #FF5722;
+}
+.next-button{ background: #4CAF50;
+    border-color: #4CAF50 !important;
+}
+.next-button:hover,
+.next-button:active,
+.next-button:visited,
+.next-button:focus{
+    background: #4CAF50;
+    border-color: #4CAF50;
+}
 
 @media (max-width: 960px) {
     .study-sidebar {

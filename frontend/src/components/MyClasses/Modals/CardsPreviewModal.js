@@ -27,7 +27,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
         // style={{backgroundColor: "#f6f3f0" }}
       >
         <ModalHeader className="d-flex flex-column px-5 pt-4"
-                     style={{borderBottom: "0 none", backgroundColor: "#f6f3f0"}}>
+                     style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
           <button type="button" className="btn-close"
                   onClick={() => closeModal()}/>
           <h4 className="modal-title text-center mb-3" id="addClassModalLabel"
@@ -43,7 +43,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
           </div>
         </ModalHeader>
         <ModalBody className="px-5 pb-5 pt-0"
-                   style={{backgroundColor: "#f6f3f0"}}>
+                   style={{backgroundColor: "#ECF6FF"}}>
           {cards.filter(card => {
             return card.question.toLowerCase().includes(keyword.toLowerCase()) ||
               card.answer.toLowerCase().includes(keyword.toLowerCase())

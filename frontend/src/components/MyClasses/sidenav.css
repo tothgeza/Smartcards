@@ -1,0 +1,70 @@
+.side-nav {
+    width: 350px;
+    /*background: #56504f;*/
+    /*background: #5d4037;*/
+    /*background-image: linear-gradient(*/
+    /*		rgba(0, 0, 0, 0.6),*/
+    /*		rgba(0, 0, 0, 0.8)*/
+    /*	),*/
+    /*	url("../../img/sidenav4.jpg");*/
+    /*background-color: #ECF6FF;*/
+    background: linear-gradient(
+            to right bottom,
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0.3));
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    box-shadow: rgba(100, 100, 100, 0.25) 0 2px 4px 1px;
+}
+/*main {*/
+/*    background: linear-gradient(to right top, #1693ff, #7cc2ff)*/
+/*}*/
+.link-sidenav{
+    /*color: #CCCCCC;*/
+    text-decoration: none;
+}
+.link-sidenav:hover,
+.link-sidenav:focus {
+    color: #fbf3f0 !important;
+}
+
+.link-myClass {
+    color: #757575;
+    text-decoration: none;
+    /*text-shadow: 0 -1px 0 #000;*/
+    margin-top: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.link-myClass:hover,
+.link-myClass:focus {
+    /*color: #535c68 !important;*/
+    color: #757575 !important;
+    /*background-color: #f7e8e3;*/
+
+    background: linear-gradient(
+            to right bottom,
+            rgba(221, 221, 221, 0.4),
+            rgba(221, 221, 221, 0.2));
+    text-shadow: none;
+}
+
+.link-myClass-active{
+    color: #1a1a1a !important;
+    /*background-color: #fbf3f0;*/
+    background: linear-gradient(
+            to right bottom,
+            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0.3));
+    border-left: 5px solid #0067C0;
+    padding-left: 11px !important;
+    margin-top: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+a {
+    text-decoration: none;
+}

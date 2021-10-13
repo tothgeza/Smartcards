@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import './home.css';
 import About from './sections/About';
 import Smartest from './sections/Smartest';
 import {IoPlay, IoPause} from "react-icons/io5";
 
-import UserService from "../services/user.service";
 import {Carousel} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 const Home = () => {
-  const [content, setContent] = useState("");
   const [index, setIndex] = useState(0);
   const [pause, setPause] = useState(false);
 
@@ -17,25 +15,8 @@ const Home = () => {
     setIndex(selectedIndex);
   };
 
-
-  // useEffect(() => {
-  //   UserService.getPublicContent().then(
-  //     (response) => {
-  //       setContent(response.data);
-  //     },
-  //     (error) => {
-  //       const _content =
-  //         (error.response && error.response.data) ||
-  //         error.message ||
-  //         error.toString();
-  //
-  //       setContent(_content);
-  //     }
-  //   );
-  // }, []);
-
   return (
-    <div style={{overflowX: "hidden"}}>
+    <div style={{overflowX: "hidden", backgroundColor: "white"}}>
       <section className={"home_sect"}>
         <div className='container-fluid p-0'>
           <Carousel
@@ -82,9 +63,9 @@ const Home = () => {
           <div className={"play-pause"}>
             <Link to={"#0"} onClick={() => setPause(!pause)}>
               {pause ? (
-                <IoPlay size={"1em"} className={"link-icon"}/>
+                <IoPlay size={"1.5em"} style={{color:"white"}}/>
               ) : (
-                <IoPause size={"1em"} className={"link-icon"}/>
+                <IoPause size={"1.5em"} style={{color:"white"}}/>
               )}
             </Link>
           </div>

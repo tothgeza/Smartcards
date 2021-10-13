@@ -1,0 +1,23 @@
+.card{
+    border-radius: 6px !important;
+}
+.add-deck-link{
+    color: #0067C0;
+}
+.add-deck-link:hover,
+.add-deck-link:active{
+    color: #004B8D !important;
+}
+#dropdown-basic {
+    background: unset;
+}
+.list-group{
+    background-color: unset;
+}
+.list-group-item {
+    background-color: unset;
+}
+.card-body {
+    background-color: unset;
+}
+

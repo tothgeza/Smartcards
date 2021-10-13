@@ -9,6 +9,7 @@ import MyClasses from "./components/MyClasses/MyClasses";
 import Profile from "./components/Profile";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import LoginModal from "./components/MyClasses/Modals/LoginModal";
 import Home from "./components/Home";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
@@ -21,7 +22,8 @@ function App() {
             <NavBar />
             <Switch>
                 <Route exact path={["/", "/home"]} component={Home} />
-                <Route exact path="/login" component={Login} />
+                {/*<Route exact path="/login" component={Login} />*/}
+                <Route exact path="/login" component={LoginModal} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/myclass" component={MyClasses} />

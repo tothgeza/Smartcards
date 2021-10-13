@@ -4,6 +4,7 @@ import SideNav from "./SideNav";
 import Content from "./Content";
 import ContentHeader from "./ContentHeader";
 import MyClassService from "../../services/myClass.service";
+import './myclasses.css';
 
 const MyClasses = () => {
 
@@ -50,7 +51,7 @@ const MyClasses = () => {
           {/*<div className="b-example-divider"/>*/}
           {
             isActiveMyClass &&
-            <div className="w-100 m-5">
+            <div className="w-100 p-5 my-class">
               <ContentHeader
                 activeMyClass={activeMyClass}
                 setActiveMyClass={setActiveMyClass}

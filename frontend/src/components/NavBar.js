@@ -3,12 +3,18 @@ import {IoPersonCircleSharp} from 'react-icons/io5';
 import { useHistory, Link } from "react-router-dom";
 
 import AuthService from "../services/auth.service";
+import LoginModal from "./MyClasses/Modals/LoginModal";
 
 const NavBar = () => {
     const history = useHistory();
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+    function openLoginModal() {
+        setShowLoginModal(true);
+    }
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
@@ -28,10 +34,17 @@ const NavBar = () => {
         history.push("/home");
         window.location.reload();
     };
+
     return (
-        <nav className="navbar navbar-expand-lg py-3" aria-label="Third navbar example">
+      <div style={{overflowX:"hidden"}}>
+          <LoginModal
+            show={showLoginModal}
+            setShow={setShowLoginModal}/>
+        <nav className="navbar navbar-expand-lg navbar-dark py-3 shadow" aria-label="Third navbar example"
+             style={{backgroundColor: "#333"}}
+        >
             <div className="container">
-                <a className="navbar-brand" href="#">SmartCards</a>
+                <h4 style={{color: "#9f9f9f"}}>SmartCards</h4>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -98,7 +111,8 @@ const NavBar = () => {
                         ) : (
                             <div className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    <Link to={"/login"} className="nav-link">
+                                    {/*<Link to={"/login"} className="nav-link">*/}
+                                    <Link to={"/#0"} className="nav-link" onClick={()=> openLoginModal()}>
                                         Login
                                     </Link>
                                 </li>
@@ -115,6 +129,8 @@ const NavBar = () => {
                 </div>
             </div>
         </nav>
+
+      </div>
     )
 }
 

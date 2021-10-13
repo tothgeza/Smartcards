@@ -52,12 +52,13 @@
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     background: -webkit-linear-gradient(
-            /*135deg,*/
-            /*rgb(0, 0, 0) 0%,*/
-            /*rgb(245, 248, 253) 100%*/
             135deg,
-            rgb(65, 65, 102) 0%,
-            rgb(65, 65, 102) 100%
+            rgb(227, 242, 253) 0%,
+            rgb(0, 0, 0) 100%
+            /*rgb(227, 242, 253) 0%,*/
+    /*        135deg,*/
+    /*        rgb(65, 65, 102) 0%,*/
+    /*        rgb(65, 65, 102) 100%*/
     );
     opacity: 0.7;
 }
