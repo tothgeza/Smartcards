@@ -27,6 +27,8 @@
 
 .show-button{ background: #FF5722;
     border-color: #FF5722 !important;
+    font-size: calc(12px + 1vmin);
+    letter-spacing: 2px;
 }
 .show-button:hover,
 .show-button:active,
@@ -34,9 +36,13 @@
 .show-button:focus{
     background: #FF5722;
     border-color: #FF5722 !important;
+    font-size: calc(12px + 1vmin);
+    letter-spacing: 2px;
 }
 .next-button{ background: #4CAF50;
     border-color: #4CAF50 !important;
+    font-size: calc(12px + 1vmin);
+    letter-spacing: 2px;
 }
 .next-button:hover,
 .next-button:active,
@@ -44,6 +50,8 @@
 .next-button:focus{
     background: #429745;
     border-color: #429745 !important;
+    font-size: calc(12px + 1vmin);
+    letter-spacing: 2px;
 }
 
 @media (max-width: 960px) {
