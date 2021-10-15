@@ -1,0 +1,7 @@
+.card-preview .form-control:focus {
+    border-color: #BDBDBD;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #0067C0;
+    /*border-bottom-color: #0067C0;*/
+    box-shadow: none;
+}

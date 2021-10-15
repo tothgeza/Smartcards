@@ -1,19 +1,37 @@
 import React, {useEffect, useState, useRef} from "react";
 import {Link} from "react-router-dom";
 import {Form, FormControl, Modal, ModalBody} from "react-bootstrap";
-import {GoPencil} from "react-icons/go";
+import {GoPencil, GoTrashcan} from "react-icons/go";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import EditCardModal from "./EditCardModal";
+import Modals from "./modals";
+import './cardspreviewmodal.css'
+import CardService from "../../../services/card.service";
+
 
 
 const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeModal, keyword, setKeyword}) => {
 
   const [showEditCardModal, setShowEditCardModal] = useState(false);
+  const [showDeleteCardModal, setShowDeleteCardModal] = useState(false);
 
   const openEditCardModal = (event, card) => {
     event.preventDefault();
     setActiveCard(card);
     setShowEditCardModal(true);
+  }
+
+  const openDeleteCardModal = (event, card) => {
+    event.preventDefault();
+    setActiveCard(card);
+    setShowDeleteCardModal(true);
+  }
+
+  const handleSubmitDeleteCard = (event) => {
+    event.preventDefault()
+    CardService.deleteCard(activeCard.id)
+      .then((result) => setActiveCard({}))
+    setShowDeleteCardModal(false);
   }
 
   return (
@@ -26,7 +44,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
         dialogClassName="modal-80w"
         // style={{backgroundColor: "#f6f3f0" }}
       >
-        <ModalHeader className="d-flex flex-column px-5 pt-4"
+        <ModalHeader className="d-flex flex-column px-5 pt-4 card-preview"
                      style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
           <button type="button" className="btn-close"
                   onClick={() => closeModal()}/>
@@ -59,11 +77,17 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
                 <div className="col px-4 py-4 card-right-border d-flex align-items-center">
                   <p className="my-auto" style={{fontSize: "14px"}}>{card.answer}</p>
                 </div>
-                <div className="col mt-2 mx-auto" style={{maxWidth: "40px"}}>
-                  <Link to="#0" onClick={(event) => openEditCardModal(event, card)}>
-                    <div><GoPencil size="1.2em !important" className={"link-icon"}/></div>
-                  </Link>
-                  {/*<div><GoTrashcan/></div>*/}
+                <div className="col mx-auto" style={{maxWidth: "40px"}}>
+                  <div>
+                    <Link to="#0" onClick={(event) => openEditCardModal(event, card)}>
+                      <GoPencil size="1.2em !important" className={"link-icon"}/>
+                    </Link>
+                  </div>
+                  <div className={"mt-2"}>
+                    <Link to="#0" onClick={(event) => openDeleteCardModal(event, card)}>
+                      <GoTrashcan size="1.2em !important" className={"link-icon"}/>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -75,6 +99,13 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
         setShow={setShowEditCardModal}
         activeCard={activeCard}
         setActiveCard={setActiveCard}
+      />
+      <Modals.deleteModal
+        active={activeCard}
+        show={showDeleteCardModal}
+        setShow={setShowDeleteCardModal}
+        submit={handleSubmitDeleteCard}
+        type={"Card"}
       />
     </div>
   )
