@@ -109,7 +109,7 @@ const StudyModal = ({cards, show, close, deck, index, setIndex}) => {
                 <Button onClick={!showAnswer ? (() => setShowAnswer(showAnswer => !showAnswer)) :
                   (() => showNextCard())}
                         className={`d-flex shadow justify-content-center align-items-center ${showAnswer ? "show-button" : "next-button"} `}
-                        style={{height: "10vh", borderRadius: "10px"}}>
+                        style={{height: "10vh", borderRadius: "8px"}}>
                   {!showAnswer ? "Show Answer" : "Next Question"}
                 </Button>
               </div>

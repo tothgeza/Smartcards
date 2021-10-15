@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import {GoPencil} from "react-icons/go";
 import {VscZoomIn, VscZoomOut} from "react-icons/vsc";
@@ -12,7 +12,8 @@ const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSiz
          onClick={() => setShowAnswer(showAnswer => !showAnswer)}
          style={{
            backgroundColor: "white",
-           borderBottom: `6px solid ${!showAnswer ? "#4CAF50" : "#FF5722"}`, borderRadius: "10px",
+           borderBottom: `6px solid ${!showAnswer ? "#4CAF50" : "#FF5722"}`,
+           borderRadius: "8px",
            textDecoration: "none",
            boxShadow: "rgba(100, 100, 100, 0.25) 0px 2px 4px 1px"
          }}>
@@ -23,7 +24,7 @@ const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSiz
             {showAnswer ? 'Answer' : 'Question'}
           </p>
         </div>
-        <div className="col d-flex justify-content-center  my-auto">
+        <div className="col d-flex justify-content-center my-auto">
           <ul className={"list-group list-group-horizontal m-0 "}>
             <li className="list-group-item border-0">
               <Link to={"/#0"} className={"link-icon"} onClick={(event) => increaseCharSize(event)}>

@@ -6,14 +6,14 @@ function Services() {
     <>
       <section id="smartest" className="services section-bg">
         <div className="container">
-          <header className="section-header text-center mb-5">
-            <h2>The world's smartest flashcard app.</h2>
+          <header className="section-header text-center my-5">
+            <h2 className={""}>The world's smartest flashcard app</h2>
           </header>
           <div className="row">
             <div className="col-md-6 col-lg-4 wow bounceInUp">
               <div className="box">
                 <div className="icon">
-                  <i className="ion-ios-analytics-outline"></i>
+                  <i className="ion-ios-analytics-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Lorem Ipsum</a>
@@ -27,14 +27,14 @@ function Services() {
             <div className="col-md-6 col-lg-4">
               <div className="box">
                 <div className="icon">
-                  <i className="ion-ios-bookmarks-outline"></i>
+                  <i className="ion-ios-bookmarks-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Dolor Sitema</a>
                 </h4>
                 <p className="description">
-                  Minim veniam, quis nostrud exercitation ullamco laboris nisi
-                  ut aliquip ex ea commodo consequat tarad limino ata
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi sint occaecati cupiditate non provident
                 </p>
               </div>
             </div>
@@ -42,28 +42,28 @@ function Services() {
             <div className="col-md-6 col-lg-4">
               <div className="box">
                 <div className="icon">
-                  <i className="ion-ios-paper-outline"></i>
+                  <i className="ion-ios-paper-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Sed ut perspiciatis</a>
                 </h4>
                 <p className="description">
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi sint occaecati cupiditate non provident
                 </p>
               </div>
             </div>
             <div className="col-md-6 col-lg-4 wow">
               <div className="box">
                 <div className="icon">
-                  <i className="ion-ios-speedometer-outline"></i>
+                  <i className="ion-ios-speedometer-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Magni Dolores</a>
                 </h4>
                 <p className="description">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                  qui officia deserunt mollit anim id est laborum
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi sint occaecati cupiditate non provident
                 </p>
               </div>
             </div>
@@ -71,28 +71,28 @@ function Services() {
             <div className="col-md-6 col-lg-4">
               <div className=" box">
                 <div className="icon">
-                  <i className="ion-ios-world-outline"></i>
+                  <i className="ion-ios-world-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Nemo Enim</a>
                 </h4>
                 <p className="description">
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui
-                  blanditiis praesentium voluptatum deleniti atque
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi sint occaecati cupiditate non provident
                 </p>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="box">
                 <div className="icon">
-                  <i className="ion-ios-clock-outline"></i>
+                  <i className="ion-ios-clock-outline"/>
                 </div>
                 <h4 className="title">
                   <a href="#">Eiusmod Tempor</a>
                 </h4>
                 <p className="description">
-                  Et harum quidem rerum facilis est et expedita distinctio. Nam
-                  libero tempore, cum soluta nobis est eligendi
+                  Voluptatum deleniti atque corrupti quos dolores et quas
+                  molestias excepturi sint occaecati cupiditate non provident
                 </p>
               </div>
             </div>

@@ -33,7 +33,7 @@
 .show-button:visited,
 .show-button:focus{
     background: #FF5722;
-    border-color: #FF5722;
+    border-color: #FF5722 !important;
 }
 .next-button{ background: #4CAF50;
     border-color: #4CAF50 !important;
@@ -42,17 +42,13 @@
 .next-button:active,
 .next-button:visited,
 .next-button:focus{
-    background: #4CAF50;
-    border-color: #4CAF50;
+    background: #429745;
+    border-color: #429745 !important;
 }
 
 @media (max-width: 960px) {
     .study-sidebar {
         display: none;
     }
-    /*.container-sm {*/
-    /*    margin-right: 0 !important;*/
-    /*    margin-left: 0 !important;*/
-    /*    width: 100% !important;*/
-    /*}*/
+
 }

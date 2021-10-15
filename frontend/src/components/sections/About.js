@@ -6,14 +6,14 @@ function About() {
     <>
       <section id="about" className="about">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-5 col-md-6">
-              <div className="about-img">
+          <div className="row my-5 align-items-center">
+            <div className="col">
+              <div className="about-img" >
                 <img src="assets/img/about-img.jpg" alt="" />
               </div>
             </div>
-            <div className="col-lg-7 col-md-6">
-              <div className="about-content">
+            <div className="col d-flex justify-content-center">
+              <div className="about-content ">
                 <h2>Attack your weaknesses</h2>
                 <p>
                   Brainscape's online flashcards optimize your studying, by repeating harder

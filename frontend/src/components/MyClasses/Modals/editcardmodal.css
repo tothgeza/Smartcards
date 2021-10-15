@@ -1,0 +1,14 @@
+.edit-card .form-control:focus {
+    border-color: #0067C0;
+    /*border-bottom-color: #0067C0;*/
+    box-shadow: none;
+}
+#card-content .modal-content {
+    height: 60vh !important;
+    top: 20vh;
+    /*padding: 30px !important;*/
+}
+
+.modal-backdrop-card {
+    z-index: 1400;
+}

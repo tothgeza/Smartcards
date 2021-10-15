@@ -1,5 +1,12 @@
 .card{
-    border-radius: 8px !important;
+    border-radius: 4px !important;
     /*background-color: #F3F3F3;*/
 
+}
+.content-header .form-control:focus {
+    border-color: #BDBDBD;
+    padding-bottom: 0;
+    border-bottom: 1px solid #0067C0;
+    /*border-bottom-color: #0067C0;*/
+    box-shadow: none;
 }

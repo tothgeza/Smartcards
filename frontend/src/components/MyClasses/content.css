@@ -20,4 +20,10 @@
 .card-body {
     background-color: unset;
 }
-
+.content-form .form-control:focus {
+    border-color: #BDBDBD;
+    padding-bottom: 0;
+    border-bottom: 1px solid #0067C0;
+    /*border-bottom-color: #0067C0;*/
+    box-shadow: none;
+}

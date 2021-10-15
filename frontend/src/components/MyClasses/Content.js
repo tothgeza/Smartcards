@@ -8,6 +8,7 @@ import CardService from "../../services/card.service";
 import Modals from "./Modals/modals";
 import CardsPreviewModal from "./Modals/CardsPreviewModal";
 import StudyModal from "./Modals/StudyModal";
+import AddCardModal from "./Modals/AddCardModal";
 
 import {IoAlbumsSharp, IoPencilSharp, IoEye} from "react-icons/io5";
 import {GoPlus, GoPlay, GoTrashcan} from "react-icons/go";
@@ -31,6 +32,8 @@ const Content = ({activeMyClass}) => {
 
   const [showStudyModal, setShowStudyModal] = useState(false);
   const [index, setIndex] = useState(0);
+
+  const [showAddCardModal, setShowAddCardModal] = useState(false);
 
   // Create Deck functions
   const openCreateDeckModal = (event) => {
@@ -56,8 +59,8 @@ const Content = ({activeMyClass}) => {
   const handleSubmitDeleteDeck = (event) => {
     event.preventDefault();
     DeckService.deleteDeck(activeDeck.id)
-      .then(result => setActiveDeck(""))
-      .then(result => setShowDeleteDeckModal(false));
+      .then(() => setActiveDeck(""))
+      .then(() => setShowDeleteDeckModal(false));
   }
 
   // Edit Deck Title functions
@@ -71,7 +74,7 @@ const Content = ({activeMyClass}) => {
     const newDeckTitle = event.target.newDeckTitle.value;
     DeckService.updateDeck(activeDeck.id, newDeckTitle)
       .then(result => setActiveDeck(result.data))
-      .then(result => setIsEditDeckTitleActive(false))
+      .then(() => setIsEditDeckTitleActive(false))
   }
 
   // Show Cards Modal
@@ -103,6 +106,20 @@ const Content = ({activeMyClass}) => {
     setShowStudyModal(false);
     setActiveDeck('')
   }
+
+  // Show Add Card Modal
+  const openAddCardModal = (event, deck) => {
+    event.preventDefault();
+    setActiveDeck(deck);
+    fetchCards(deck)
+    setShowAddCardModal(true);
+  }
+
+  const closeAddCardModal = () => {
+    // event.preventDefault();
+    setShowAddCardModal(false);
+  }
+
 
   useEffect(() => {
     fetchDecks(activeMyClass.id);
@@ -157,7 +174,7 @@ const Content = ({activeMyClass}) => {
               <div className="col">
                 {isEditDeckTitleActive && activeDeck.id === deck.id ? (
                   <Form onSubmit={(event) => handleSubmitEditDeck(event)}>
-                    <InputGroup className="">
+                    <InputGroup className="content-form">
                       <FormControl
                         className="p-0"
                         name="newDeckTitle"
@@ -190,7 +207,7 @@ const Content = ({activeMyClass}) => {
                 )}
               </div>
               <div className="col"
-                   style={{maxWidth: "155px"}}
+                   style={{maxWidth: "185px"}}
               >
               <ul className={"list-group list-group-horizontal m-0 "}>
                 <li className="list-group-item border-0 p-2">
@@ -201,6 +218,13 @@ const Content = ({activeMyClass}) => {
                 <li className="list-group-item border-0 p-2">
                   <Link to="#0" className="class-link" onClick={(event) => openPreviewCardsModal(event, deck)}>
                     <IoEye className={"link-icon"} size={"1.5em"}/>
+                  </Link>
+                </li>
+                <li className="list-group-item border-0 p-2">
+                  <Link to="#0" className="class-link"
+                        onClick={(event) => openAddCardModal(event, deck)}
+                  >
+                    <GoPlus className={"link-icon"} size={"1.5em"}/>
                   </Link>
                 </li>
                 {/* Edit Deck Dropdown */}
@@ -293,6 +317,7 @@ const Content = ({activeMyClass}) => {
         keyword={keyword}
         setKeyword={setKeyword}
       />
+
       <StudyModal
         cards={activeCards}
         show={showStudyModal}
@@ -300,6 +325,16 @@ const Content = ({activeMyClass}) => {
         deck={activeDeck}
         index={index}
         setIndex={setIndex}
+      />
+
+      <AddCardModal
+        deck={activeDeck}
+        show={showAddCardModal}
+        handleClose={closeAddCardModal}
+        activeCards={activeCards}
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
+
       />
     </>
 

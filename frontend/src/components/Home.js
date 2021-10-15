@@ -4,14 +4,20 @@ import About from './sections/About';
 import Smartest from './sections/Smartest';
 import {IoPlay, IoPause} from "react-icons/io5";
 
-import {Carousel} from "react-bootstrap";
+import {Button, Carousel} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import LoginModal from "./MyClasses/Modals/LoginModal";
 
 const Home = () => {
   const [index, setIndex] = useState(0);
   const [pause, setPause] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const handleSelect = (selectedIndex, e) => {
+  function openLoginModal() {
+    setShowLoginModal(true);
+  }
+
+  const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
@@ -45,8 +51,6 @@ const Home = () => {
               />
               <div className={"img_overlay"}/>
               <Carousel.Caption>
-                <h3 style={{color:"blue !important"}} >First slide label</h3>
-                <p style={{color:"black !important"}}>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -59,26 +63,50 @@ const Home = () => {
               <Carousel.Caption>
               </Carousel.Caption>
             </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src="https://picsum.photos/800/400?text=Fourth slide&bg=20248a"
+                alt="Third slide"
+              />
+              <div className={"img_overlay"}/>
+              <Carousel.Caption>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img
+                className="d-block w-100"
+                src="https://picsum.photos/800/400?text=Third slide&bg=205327"
+                alt="Third slide"
+              />
+              <div className={"img_overlay"}/>
+              <Carousel.Caption>
+              </Carousel.Caption>
+            </Carousel.Item>
           </Carousel>
           <div className={"play-pause"}>
             <Link to={"#0"} onClick={() => setPause(!pause)}>
               {pause ? (
-                <IoPlay size={"1.5em"} style={{color:"white"}}/>
+                <IoPlay size={"1.5em"} style={{color: "white"}}/>
               ) : (
-                <IoPause size={"1.5em"} style={{color:"white"}}/>
+                <IoPause size={"1.5em"} style={{color: "white"}}/>
               )}
             </Link>
           </div>
           <div className={"over_content"}>
             <h1>Rise to<br/>your challenge.</h1>
-            <p>
+            <p className={"d-inline-block"}>
               Flashcards for <b>serious learners.</b>
             </p>
+            <Button className={"ms-4"} onClick={() => openLoginModal()}>Get Started</Button>
           </div>
         </div>
       </section>
       <About/>
       <Smartest/>
+      <LoginModal
+        show={showLoginModal}
+        setShow={setShowLoginModal}/>
     </div>
   )
     ;

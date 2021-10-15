@@ -1,4 +1,4 @@
-import {Modal, Form, FormControl} from "react-bootstrap";
+import {Modal, Form, FormControl, Button} from "react-bootstrap";
 import React from "react";
 import "./modals.css"
 
@@ -8,47 +8,54 @@ const deleteModal = ({active, show, setShow, submit, type}) => {
       case 'Class':
         return (
           <p className="text-center text-muted">
-            You are about to remove the <b>{active.title}</b> from your library.
-            Are you sure that you wish to proceed
+            Are you sure that you want to Remove <b>{active.title}</b> class from your library?
+            This action cannot be undone.
+
           </p>
         );
       case 'Deck':
         return (
           <p className="text-center text-muted">
-            You are about to remove the <b>{active.title}</b>.
-            Are you sure that you wish to proceed
+            You are about to remove <b>{active.title}</b> deck.
+            Are you sure that you wish to proceed?
           </p>
         );
-      default:
-        return '';
+      case 'Card':
+        return (
+          <p className="text-center text-muted">
+            You are about to remove this Card.
+            Are you sure that you wish to proceed?
+          </p>
+        );
     }
   }
   return (
     <Modal
       show={show}
       onHide={() => setShow(false)}
+      style={{position: "absolute", zIndex: "1500"}}
       dialogClassName="modal-position"
+      backdropClassName={"modal-backdrop-delete"}
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel"
             style={{display: "block"}}>Caution</h3>
       </div>
       <div className="modal-body"
-           style={{backgroundColor:"#ECF6FF"}}>
+           style={{backgroundColor: "#ECF6FF"}}>
         {text(type)}
         <div className="row text-center justify-content-md-center mt-4 mb-3">
-          <button type="button"
-                  className="btn btn-primary my-auto col-4"
-                  style={{display: "block"}}
-                  onClick={() => setShow(false)}
-          >Cancel
-          </button>
-          <a href="#0"
-             className="col-4 my-auto"
-             onClick={(event) => submit(event)}>Yes, remove {type}</a>
+          <div className="col my-auto d-flex justify-content-end">
+            <Button onClick={() => setShow(false)}>Cancel</Button>
+          </div>
+          <div className="col my-auto d-flex justify-content-start">
+            <a href="#0"
+               onClick={(event) => submit(event)}>Yes, remove {type}
+            </a>
+          </div>
         </div>
       </div>
     </Modal>
@@ -81,15 +88,15 @@ const createModal = ({show, setShow, submit, type}) => {
       dialogClassName="modal-position"
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel" style={{display: "block"}}>
           Create New {type}
         </h3>
       </div>
-      <div className="modal-body"
-           style={{borderBottom: "0 none", backgroundColor:"#ECF6FF"}}>
+      <div className="modal-body modal-title"
+           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
         {text(type)}
         <Form className="text-center" onSubmit={(event) => submit(event)}>
           <FormControl className="mb-3 mx-auto" type="text" name="newTitle"

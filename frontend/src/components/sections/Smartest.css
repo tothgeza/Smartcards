@@ -1,3 +1,15 @@
+.section-bg {
+    background: #ECF6FF;
+}
+
+.section-header h2 {
+    font-size: 36px;
+    color: #002749;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+}
 
 #smartest {
     padding: 60px 0 40px 0;
@@ -45,7 +57,7 @@
 }
 
 #smartest .box:hover .title a {
-    color: #1bb1dc !important;
+    color: #0067C0 !important;
 }
 
 #smartest .description {

@@ -29,7 +29,7 @@
 .home_sect .over_content {
     position: absolute;
     margin: auto;
-    top: 40%;
+    top: 35%;
     right: 0;
     left: 0;
     width: 90%;
@@ -44,22 +44,23 @@
 .home_sect .carousel-inner .carousel-item .img-fluid {
     width: 100%;
     position: relative;
+    /*position: absolute;*/
 }
 .home_sect .carousel-inner .carousel-item .img_overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: -webkit-fill-available;
-    height: -webkit-fill-available;
+    /*width: -webkit-fill-available;*/
+    /*height: -webkit-fill-available;*/
     background: -webkit-linear-gradient(
             135deg,
-            rgb(227, 242, 253) 0%,
+            rgb(0, 0, 0) 0%,
             rgb(0, 0, 0) 100%
+    );
             /*rgb(227, 242, 253) 0%,*/
     /*        135deg,*/
     /*        rgb(65, 65, 102) 0%,*/
     /*        rgb(65, 65, 102) 100%*/
-    );
     opacity: 0.7;
 }
 .carousel-item {
@@ -67,11 +68,13 @@
 }
 .over_content h1{
     color: #fff;
-    font-size: 8vmin;
-    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 6vmin;
 }
 .over_content p{
     color: #fff;
+    font-family: 'Montserrat', sans-serif;
     font-size: calc(12px + 1vmin);;
     margin-top: 20px;
     /*font-weight: 500;*/
