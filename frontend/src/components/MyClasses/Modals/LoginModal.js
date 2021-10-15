@@ -78,7 +78,7 @@ const LoginModal = ({props, show, setShow}) => {
       onHide={() => setShow(false)}
       className={"p-0 m-0"}
       dialogClassName="modal-60w"
-    > <ModalHeader className="d-flex flex-column px-4 pt-4"
+    > <ModalHeader className="d-flex flex-column px-4 pb-0"
                    style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
       <button type="button" className="btn-close"
               onClick={() => setShow(false)}/>
@@ -86,22 +86,21 @@ const LoginModal = ({props, show, setShow}) => {
       <div className="modal-body px-4}"
            style={{ backgroundColor: "#ECF6FF"}}>
         {/*<div className="col-md-12">*/}
-          <div className=" mx-auto mx-0 p-4" style={{width: "350px"}}>
-            <img
-              src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-              alt="profile-img"
-              className="profile-img-card mb-3"
-            />
-            <h1 className="h3 mb-4 fw-normal text-center">Please sign in</h1>
-            <Form onSubmit={handleLogin} ref={form} className="form-sign mx-3">
+          <div className=" mx-auto mx-0 p-4 pt-0 login" style={{width: "350px"}}>
+            {/*<img*/}
+            {/*  src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"*/}
+            {/*  alt="profile-img"*/}
+            {/*  className="profile-img-card mb-3"*/}
+            {/*/>*/}
+            <h3 className="mb-4 mt-2 text-center" style={{fontWeight: "700"}}>Login</h3>
+            <Form onSubmit={handleLogin} ref={form} className="form-sign mx-3 mt-5">
 
               <div className="mb-3">
-                <label className="form-label" htmlFor="username">Username</label>
+                <label className="form-label text-secondary" htmlFor="username">Username</label>
                 <Input
                   type="text"
                   className="form-control mb-2"
                   name="username"
-                  // placeholder="name@example.com"
                   value={username}
                   onChange={onChangeUsername}
                   validations={[required]}
@@ -109,12 +108,11 @@ const LoginModal = ({props, show, setShow}) => {
               </div>
 
               <div className="mb-3">
-                <label className="form-label" htmlFor="password">Password</label>
+                <label className="form-label text-secondary" htmlFor="password">Password</label>
                 <Input
                   type="password"
                   className="form-control mb-2"
                   name="password"
-                  // placeholder="Password"
                   value={password}
                   onChange={onChangePassword}
                   validations={[required]}
@@ -125,7 +123,7 @@ const LoginModal = ({props, show, setShow}) => {
                   {loading && (
                     <span className="spinner-border spinner-border-sm"/>
                   )}
-                  <span>Login</span>
+                  <span>Log in</span>
                 </button>
               </div>
               {message && (
