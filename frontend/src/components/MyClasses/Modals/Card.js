@@ -2,8 +2,10 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {GoPencil} from "react-icons/go";
 import {VscZoomIn, VscZoomOut} from "react-icons/vsc";
+import EditCardModal from "./EditCardModal";
 
-const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSize, decreaseCharSize}) => {
+const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSize,
+                decreaseCharSize, openEditCardModal, card}) => {
 
   return (
 
@@ -42,7 +44,8 @@ const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSiz
           <ul className={"list-group list-group-horizontal m-0 "}>
             <li className="list-group-item border-0">
               <Link to={"/#0"}>
-                <GoPencil className={"link-icon"} size={"1.5em"}/>
+                <GoPencil className={"link-icon"} size={"1.5em"}
+                  onClick={(event) =>openEditCardModal(event,card)}/>
               </Link>
             </li>
           </ul>

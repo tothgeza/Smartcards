@@ -320,6 +320,8 @@ const Content = ({activeMyClass}) => {
 
       <StudyModal
         cards={activeCards}
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
         show={showStudyModal}
         close={closeStudyModal}
         deck={activeDeck}

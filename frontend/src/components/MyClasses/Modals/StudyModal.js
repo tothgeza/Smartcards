@@ -5,10 +5,19 @@ import {Link} from "react-router-dom";
 import './studymodal.css';
 import Card from "./Card"
 import {SwitchTransition, CSSTransition} from "react-transition-group";
+import EditCardModal from "./EditCardModal";
 
-const StudyModal = ({cards, show, close, deck, index, setIndex}) => {
+const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index, setIndex}) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [charSize, setCharSize] = useState(22)
+  const [showEditCardModal, setShowEditCardModal] = useState(false);
+
+  const openEditCardModal = (event, card) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setActiveCard(card);
+    setShowEditCardModal(true);
+  }
 
   const showNextCard = () => {
     if (index === cards.length - 1)
@@ -97,6 +106,8 @@ const StudyModal = ({cards, show, close, deck, index, setIndex}) => {
                               contentStyle={contentStyle}
                               increaseCharSize={increaseCharSize}
                               decreaseCharSize={decreaseCharSize}
+                              openEditCardModal={openEditCardModal}
+                              card={cards[index]}
 
                         />
                       </div>
@@ -117,6 +128,13 @@ const StudyModal = ({cards, show, close, deck, index, setIndex}) => {
           </div>
         </Modal.Body>
       </Modal>
+
+      <EditCardModal
+        show={showEditCardModal}
+        setShow={setShowEditCardModal}
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
+      />
     </div>
   );
 };
