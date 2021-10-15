@@ -83,7 +83,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
                       <GoPencil size="1.2em !important" className={"link-icon"}/>
                     </Link>
                   </div>
-                  <div className={"mt-2"}>
+                  <div className={"mt-3"}>
                     <Link to="#0" onClick={(event) => openDeleteCardModal(event, card)}>
                       <GoTrashcan size="1.2em !important" className={"link-icon"}/>
                     </Link>
