@@ -1,32 +1,82 @@
 main {
     display: flex;
     flex-wrap: nowrap;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 70px);
     /*height: -o-calc(100% - 72px); !* opera *!*/
     /*height: -webkit-calc(100% - 72px); !* google, safari *!*/
     /*height: -moz-calc(100% - 72px); !* firefox *!*/
     /*height: -webkit-fill-available;*/
     max-height: 100vh;
     overflow-x: auto;
-    /*background: #F3F3F3;*/
-    background: linear-gradient(
-            to right bottom,
-            rgba(255, 255, 255, 0.7),
-            rgba(255, 255, 255, 0.3));
+    background-color: #F3F3F3;
+    /*background: linear-gradient(*/
+    /*        to right bottom,*/
+    /*        rgba(255, 255, 255, 0.7),*/
+    /*        rgba(255, 255, 255, 0.3));*/
     overflow-y: hidden;
 }
 
-.my-class{
+.my-class {
     /*background-color: #F5F5F5;*/
     /*background: linear-gradient(*/
     /*        to right bottom,*/
     /*        rgba(255, 255, 255, 0.7),*/
     /*        rgba(255, 255, 255, 0.3));*/
 }
+
 .card {
+    background-color: #ffffff;
+    /*background: linear-gradient(*/
+    /*        to right bottom,*/
+    /*        rgba(255, 255, 255, 0.7),*/
+    /*        rgba(255, 255, 255, 0.3));*/
+    box-shadow: rgba(100, 100, 100, 0.25) 0 1px 4px 0;
+}
+
+.card:hover {
     background: linear-gradient(
             to right bottom,
-            rgba(255, 255, 255, 0.7),
+            rgba(255, 255, 255, 0, 7),
             rgba(255, 255, 255, 0.3));
-    box-shadow: rgba(100, 100, 100, 0.25) 0 1px 4px 0;
+}
+
+.side-nav-link {
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 10px;
+    z-index: 1;
+}
+
+@media (max-width: 991px) {
+    .side-nav-wrapper {
+        display: none;
+        overflow: hidden;
+    }
+
+    .side-nav-link {
+        display: block;
+    }
+
+    .side-nav {
+        width: auto;
+        /*background-color: #f2f9ff;*/
+    }
+}
+
+@media (max-width: 767px) {
+    .side-nav-link {
+        top: 10px;
+    }
+    .navbar {
+        padding-left: 30px;
+    }
+    #deck-content .modal-body{
+        padding: 0 10px 10px 10px !important;
+    }
+}
+@media (max-width: 610px) {
+    .navbar {
+        padding-left: 30px;
+    }
 }
