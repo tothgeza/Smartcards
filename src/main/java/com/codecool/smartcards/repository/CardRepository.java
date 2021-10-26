@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
 
+    @Query("select c from Card c where c.deck.id = :deckID order by c.id asc")
+    List<Card> findCardByDeckId(@Param("deckID") long deckID);
+
     @Query("select new com.codecool.smartcards.dto.CardDTO(" +
             "c.id, c.question, c.answer, c.deck.id, c.deck.myClass.id, c.deck.myClass.user.id)" +
             " from Card c where c.deck.id = :deckID order by c.id asc")
