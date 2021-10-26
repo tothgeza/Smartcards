@@ -11,16 +11,16 @@ public class PublicCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length=4500)
     private String question;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, length=4500)
     private String answer;
 
     @NotBlank
     @ManyToOne(fetch = FetchType.LAZY)
-    private Deck deck;
+    private PublicDeck publicDeck;
 
     public PublicCard() {
     }
@@ -45,11 +45,11 @@ public class PublicCard {
         this.answer = answer;
     }
 
-    public Deck getDeck() {
-        return deck;
+    public PublicDeck getPublicDeck() {
+        return publicDeck;
     }
 
-    public void setDeck(Deck deck) {
-        this.deck = deck;
+    public void setPublicDeck(PublicDeck publicDeck) {
+        this.publicDeck = publicDeck;
     }
 }
