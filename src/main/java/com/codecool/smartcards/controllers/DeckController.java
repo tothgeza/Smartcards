@@ -39,8 +39,8 @@ public class DeckController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/{deckID}")
-    public ResponseEntity<DeckDTO> getDeckById(@PathVariable("deckID") long deckID) {
-        return deckService.getDeckById(deckID);
+    public ResponseEntity<DeckDTO> getDeckDTOById(@PathVariable("deckID") long deckID) {
+        return deckService.getDeckDTOById(deckID);
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -54,5 +54,18 @@ public class DeckController {
     @DeleteMapping("/{deckID}")
     public ResponseEntity<HttpStatus> deleteDeck(@PathVariable("deckID") long deckID) {
         return deckService.deleteDeck(deckID);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/share/{deckID}")
+    public ResponseEntity<HttpStatus> shareDeckById(@PathVariable("deckID") long deckID) {
+        return deckService.shareDeckById(deckID);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/download/{myClassID}/{deckID}")
+    public ResponseEntity<HttpStatus> downloadDeckById( @PathVariable("myClassID") long myClassID,
+                                                        @PathVariable("deckID") long deckID) {
+        return deckService.downloadDeckById(myClassID, deckID);
     }
 }
