@@ -21,6 +21,11 @@ public class PublicDeck {
     public PublicDeck() {
     }
 
+    public PublicDeck(String title, boolean isPublic) {
+        this.title = title;
+        this.isPublic = isPublic;
+    }
+
     public Long getId() {
         return id;
     }
