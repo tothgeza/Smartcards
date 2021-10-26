@@ -33,7 +33,7 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyCl
 
   useEffect(() => {
     fetchMyClass()
-  }, [])
+  }, [activeMyClass])
 
   return (
     // <main className="flex-shrink-0">

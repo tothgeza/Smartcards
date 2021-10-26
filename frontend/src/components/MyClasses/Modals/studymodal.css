@@ -2,7 +2,7 @@
 
 .fade-enter .my-card {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateX(100%);
 }
 .fade-enter-active .my-card {
     opacity: 1;
@@ -59,4 +59,7 @@
         display: none;
     }
 
+}
+.react-card-flip {
+    height: 100%;
 }

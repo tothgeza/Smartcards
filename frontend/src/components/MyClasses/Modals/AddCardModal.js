@@ -1,15 +1,11 @@
-import React, {useState} from 'react';
-import {Accordion, Button, Form, FormControl, Modal, useAccordionButton, Card} from "react-bootstrap";
+import React from 'react';
+import {Form, FormControl, Modal} from "react-bootstrap";
 import './addcardmodal.css';
-import ModalHeader from "react-bootstrap/ModalHeader";
-import {Link} from "react-router-dom";
-import {GoPencil} from "react-icons/go";
-import CardHeader from "react-bootstrap/CardHeader";
 import CardService from "../../../services/card.service";
 
-const AddCardModal = ({deck, show, handleClose, activeCard, setActiveCard}) => {
+const AddCardModal = ({deck, show, handleClose, setActiveCard}) => {
 
-  const handleSubmitEditCard = (event, card) => {
+  const handleSubmitEditCard = (event) => {
     event.preventDefault()
     const newQuestion = event.target.newQuestion.value
     const newAnswer = event.target.newAnswer.value
@@ -39,11 +35,11 @@ const AddCardModal = ({deck, show, handleClose, activeCard, setActiveCard}) => {
       <div className="modal-body edit-card" style={{backgroundColor: "#ECF6FF"}}>
         <div className="container-fluid h-100">
           <Form className="row h-100"
-                onSubmit={(event) => handleSubmitEditCard(event, activeCard)}>
+                onSubmit={(event) => handleSubmitEditCard(event)}>
             <div className="col-6">
               <div className="h-100 d-flex flex-column">
                 <div className="row mb-0">
-                  <div className="ms-3  text-secondary"
+                  <div className="ms-2  text-secondary"
                        style={{height: "15px", letterSpacing: "1px"}}>
                     Question
                   </div>

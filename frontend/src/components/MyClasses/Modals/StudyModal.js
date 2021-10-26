@@ -5,12 +5,15 @@ import {Link} from "react-router-dom";
 import './studymodal.css';
 import Card from "./Card"
 import {SwitchTransition, CSSTransition} from "react-transition-group";
+import ReactCardFlip from 'react-card-flip';
 import EditCardModal from "./EditCardModal";
 
 const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index, setIndex}) => {
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
+  const [nextCard, setNextCard] = useState(false);
   const [charSize, setCharSize] = useState(22)
   const [showEditCardModal, setShowEditCardModal] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const openEditCardModal = (event, card) => {
     event.preventDefault();
@@ -18,17 +21,25 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
     setActiveCard(card);
     setShowEditCardModal(true);
   }
+  const handleFlip = (e) => {
+    e.preventDefault();
+    setIsAnswer(!isAnswer)
+    // setNextCard(false);
+    setIsFlipped(!isFlipped)
+  }
 
   const showNextCard = () => {
     if (index === cards.length - 1)
       setIndex(0);
     else
       setIndex(index => index + 1)
-    setShowAnswer(false);
+    setIsAnswer(false);
+    setIsFlipped(false);
+    setNextCard(!nextCard);
   }
   let contentStyle = {
     fontWeight: "500",
-    fontSize: charSize + "px"
+    fontSize: charSize + "px",
   }
 
   const increaseCharSize = (event) => {
@@ -90,7 +101,7 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
               <div className="container-xxl row flex-grow-1 mx-auto">
                 <SwitchTransition mode={"out-in"}>
                   <CSSTransition
-                    key={showAnswer}
+                    key={nextCard}
                     addEndListener={(node, done) => {
                       node.addEventListener("transitionend", done, false);
                     }}
@@ -98,18 +109,31 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
                     <div className="flex-grow-1 pb-2"
                          style={{overflow: "hidden"}}
                     >
-                      <div className={"my-card h-100"}>
-                        <Card content={!showAnswer ? ((cards && cards.length > 0) && cards[index].question) :
-                          ((cards && cards.length > 0) && cards[index].answer)}
-                              showAnswer={showAnswer}
-                              setShowAnswer={setShowAnswer}
+                      <div className={"my-card h-100"} onClick={(event) => handleFlip(event) }>
+                        <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical"
+                                       flipSpeedFrontToBack={1}
+                                       flipSpeedBackToFront={1}>
+                        <Card content={(cards && cards.length > 0) && cards[index].question}
+                              showAnswer={isAnswer}
                               contentStyle={contentStyle}
                               increaseCharSize={increaseCharSize}
                               decreaseCharSize={decreaseCharSize}
                               openEditCardModal={openEditCardModal}
                               card={cards[index]}
-
+                              color={"#4CAF50"}
+                              type={"Question"}
                         />
+                          <Card content={(cards && cards.length > 0) && cards[index].answer}
+                                showAnswer={isAnswer}
+                                contentStyle={contentStyle}
+                                increaseCharSize={increaseCharSize}
+                                decreaseCharSize={decreaseCharSize}
+                                openEditCardModal={openEditCardModal}
+                                card={cards[index]}
+                                color={"#FF5722"}
+                                type={"Answer"}
+                          />
+                        </ReactCardFlip>
                       </div>
                     </div>
                   </CSSTransition>
@@ -117,11 +141,11 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
                 {/*  <Card content={(cards && cards.length > 0) && cards[0].question}/>*/}
               </div>
               <div className="container-xxl row my-4 mx-auto">
-                <Button onClick={!showAnswer ? (() => setShowAnswer(showAnswer => !showAnswer)) :
+                <Button onClick={!isAnswer ? ((event) => handleFlip(event)) :
                   (() => showNextCard())}
-                        className={`d-flex shadow justify-content-center align-items-center ${showAnswer ? "show-button" : "next-button"} `}
+                        className={`d-flex shadow justify-content-center align-items-center ${isAnswer ? "show-button" : "next-button"} `}
                         style={{height: "10vh", borderRadius: "8px"}}>
-                  {!showAnswer ? "Show Answer" : "Next Question"}
+                  {!isAnswer ? "Show Answer" : "Next Question"}
                 </Button>
               </div>
             </div>

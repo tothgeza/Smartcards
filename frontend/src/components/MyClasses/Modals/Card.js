@@ -4,17 +4,17 @@ import {GoPencil} from "react-icons/go";
 import {VscZoomIn, VscZoomOut} from "react-icons/vsc";
 import EditCardModal from "./EditCardModal";
 
-const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSize,
-                decreaseCharSize, openEditCardModal, card}) => {
+const Card = ({content, showAnswer, contentStyle, increaseCharSize,
+                decreaseCharSize, openEditCardModal, card, color, type}) => {
 
   return (
 
 
     <div className={"m-1 h-100"}
-         onClick={() => setShowAnswer(showAnswer => !showAnswer)}
          style={{
            backgroundColor: "white",
-           borderBottom: `6px solid ${!showAnswer ? "#4CAF50" : "#FF5722"}`,
+           // borderBottom: `6px solid ${!showAnswer ? "#4CAF50" : "#FF5722"}`,
+           borderBottom: `6px solid ${color}`,
            borderRadius: "8px",
            textDecoration: "none",
            boxShadow: "rgba(100, 100, 100, 0.25) 0px 2px 4px 1px"
@@ -23,7 +23,7 @@ const Card = ({content, showAnswer, setShowAnswer, contentStyle, increaseCharSiz
       <div className="row mx-1">
         <div className="col">
           <p className={"mt-3 ms-3"} style={{size: "18px", fontWeight: "500", color: "#BFBFBF"}}>
-            {showAnswer ? 'Answer' : 'Question'}
+            {type}
           </p>
         </div>
         <div className="col d-flex justify-content-center my-auto">
