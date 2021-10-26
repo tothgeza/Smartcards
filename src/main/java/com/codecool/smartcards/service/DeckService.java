@@ -5,6 +5,7 @@ import com.codecool.smartcards.models.Deck;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,9 +15,14 @@ public interface DeckService {
 
     ResponseEntity<DeckDTO> createDeck(long myClassID, Deck newDeck);
 
-    ResponseEntity<DeckDTO> getDeckById(long deckID);
+    ResponseEntity<DeckDTO> getDeckDTOById(long deckID);
 
     ResponseEntity<DeckDTO> updateDeck(long deckID, Deck updateDeck);
 
     ResponseEntity<HttpStatus> deleteDeck( long deckID);
+
+    ResponseEntity<HttpStatus> shareDeckById(@PathVariable("deckID") long deckID);
+
+    ResponseEntity<HttpStatus> downloadDeckById(@PathVariable("deckID") long deckID,
+                                                @PathVariable("myClassID") long myClassID);
 }
