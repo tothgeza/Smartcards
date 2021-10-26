@@ -25,6 +25,12 @@ public class PublicCard {
     public PublicCard() {
     }
 
+    public PublicCard(String question, String answer, PublicDeck publicDeck) {
+        this.question = question;
+        this.answer = answer;
+        this.publicDeck = publicDeck;
+    }
+
     public Long getId() {
         return id;
     }
