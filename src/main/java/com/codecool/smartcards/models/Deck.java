@@ -31,6 +31,12 @@ public class Deck {
     public Deck() {
     }
 
+    public Deck(String title, boolean isPublic, MyClass myClass) {
+        this.title = title;
+        this.isPublic = isPublic;
+        this.myClass = myClass;
+    }
+
     public Long getId() {
         return id;
     }
