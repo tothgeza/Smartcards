@@ -29,6 +29,12 @@ public class Card {
     public Card() {
     }
 
+    public Card(String question, String answer, Deck deck) {
+        this.question = question;
+        this.answer = answer;
+        this.deck = deck;
+    }
+
     public Long getId() {
         return id;
     }
