@@ -12,19 +12,19 @@ import java.util.Optional;
 
 public interface PublicCardRepository extends JpaRepository<PublicCard, Long> {
 
-    @Query("select c from Card c where c.deck.id = :deckID order by c.id asc")
+    @Query("select c from PublicCard c where c.publicDeck.id = :deckID order by c.id asc")
     List<PublicCard> findPublicCardByDeckId(@Param("deckID") long deckID);
 
     @Query("select new com.codecool.smartcards.dto.PublicCardDTO" +
-            "(c.id, c.question, c.answer, c.deck.id)" +
-            " from Card c where c.deck.id = :deckID order by c.id asc")
+            "(c.id, c.question, c.answer, c.publicDeck.id)" +
+            " from PublicCard c where c.publicDeck.id = :deckID order by c.id asc")
     List<PublicCardDTO> findPublicCardByDeckIdDTO(@Param("deckID") long deckID);
 
-    @Query("select c from Card c where c.id = :cardID")
-    Optional<Card> findPublicCardById(@Param("cardID") long cardID);
+    @Query("select c from PublicCard c where c.id = :cardID")
+    Optional<PublicCard> findPublicCardById(@Param("cardID") long cardID);
 
     @Query("select new com.codecool.smartcards.dto.PublicCardDTO(" +
-            "c.id, c.question, c.answer, c.deck.id)" +
-            " from Card c where c.id = :cardID")
+            "c.id, c.question, c.answer, c.publicDeck.id)" +
+            " from PublicCard c where c.id = :cardID")
     Optional<PublicCardDTO> findPublicCardByIdDTO(@Param("cardID") long cardID);
 }

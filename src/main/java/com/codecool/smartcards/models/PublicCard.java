@@ -14,11 +14,9 @@ public class PublicCard {
     @Column(nullable = false, length=4500)
     private String question;
 
-    @NotBlank
     @Column(nullable = false, length=4500)
     private String answer;
 
-    @NotBlank
     @ManyToOne(fetch = FetchType.LAZY)
     private PublicDeck publicDeck;
 
