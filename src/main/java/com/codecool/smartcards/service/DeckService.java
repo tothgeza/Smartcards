@@ -21,8 +21,4 @@ public interface DeckService {
 
     ResponseEntity<HttpStatus> deleteDeck( long deckID);
 
-    ResponseEntity<HttpStatus> shareDeckById(@PathVariable("deckID") long deckID);
-
-    ResponseEntity<HttpStatus> downloadDeckById(@PathVariable("deckID") long deckID,
-                                                @PathVariable("myClassID") long myClassID);
 }

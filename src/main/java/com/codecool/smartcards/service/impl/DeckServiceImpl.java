@@ -18,20 +18,12 @@ import java.util.Optional;
 @Service
 public class DeckServiceImpl implements DeckService {
 
-    CardRepository cardRepository;
-    PublicCardRepository publicCardRepository;
     DeckRepository deckRepository;
-    PublicDeckRepository publicDeckRepository;
     MyClassRepository myClassRepository;
 
     @Autowired
-    public DeckServiceImpl(DeckRepository deckRepository, MyClassRepository myClassRepository,
-                           CardRepository cardRepository, PublicCardRepository publicCardRepository,
-                           PublicDeckRepository publicDeckRepository) {
-        this.cardRepository = cardRepository;
-        this.publicCardRepository = publicCardRepository;
+    public DeckServiceImpl(DeckRepository deckRepository, MyClassRepository myClassRepository) {
         this.deckRepository = deckRepository;
-        this.publicDeckRepository = publicDeckRepository;
         this.myClassRepository = myClassRepository;
     }
 
@@ -103,42 +95,6 @@ public class DeckServiceImpl implements DeckService {
             deckRepository.deleteById(deckID);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public ResponseEntity<HttpStatus> shareDeckById(long deckID) {
-        Optional<Deck> _deck = deckRepository.findDeckById(deckID);
-        if (_deck.isPresent()) {
-            PublicDeck _pDeck = new PublicDeck(_deck.get().getTitle(), _deck.get().isPublic());
-            publicDeckRepository.save(_pDeck);
-            List<Card> _cards = cardRepository.findCardByDeckId(deckID);
-            for (Card card : _cards) {
-                PublicCard _pCard = new PublicCard(card.getAnswer(), card.getQuestion(), _pDeck);
-                publicCardRepository.save(_pCard);
-            }
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public ResponseEntity<HttpStatus> downloadDeckById(@PathVariable("myClassID") long myClassID,
-                                                       @PathVariable("deckID") long deckID) {
-        Optional<PublicDeck> _pDeck = publicDeckRepository.findPublicDeckById(deckID);
-        Optional<MyClass> _myClass = myClassRepository.findMyClassById(myClassID);
-        if (_pDeck.isPresent() && _myClass.isPresent()) {
-            Deck _deck = new Deck(_pDeck.get().getTitle(), _pDeck.get().isPublic(), _myClass.get());
-            deckRepository.save(_deck);
-            List<PublicCard> _pCards = publicCardRepository.findPublicCardByDeckId(deckID);
-            for (PublicCard publicCard : _pCards) {
-                Card _card = new Card(publicCard.getAnswer(), publicCard.getQuestion(), _deck);
-                cardRepository.save(_card);
-            }
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
