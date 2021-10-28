@@ -4,7 +4,7 @@ import {GoPencil} from "react-icons/go";
 import {VscZoomIn, VscZoomOut} from "react-icons/vsc";
 import EditCardModal from "./EditCardModal";
 
-const Card = ({content, showAnswer, contentStyle, increaseCharSize,
+const Card = ({content, contentStyle, increaseCharSize,
                 decreaseCharSize, openEditCardModal, card, color, type}) => {
 
   return (
@@ -54,7 +54,7 @@ const Card = ({content, showAnswer, contentStyle, increaseCharSize,
       {/* Card content*/}
       <div className="row p-4 h-100 align-items-center"
            style={{
-             maxHeight: "calc(75vh - 60px)",
+             maxHeight: "calc(75vh - 125px)",
              overflowY: "auto"
            }}>
         <div className="col">

@@ -79,12 +79,12 @@ const LoginModal = ({props, show, setShow}) => {
       className={"p-0 m-0"}
       dialogClassName="modal-60w"
     > <ModalHeader className="d-flex flex-column px-4 pb-0"
-                   style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+                   style={{borderBottom: "0 none", backgroundColor: "#E0E7FF"}}>
       <button type="button" className="btn-close"
               onClick={() => setShow(false)}/>
     </ModalHeader>
       <div className="modal-body px-4}"
-           style={{ backgroundColor: "#ECF6FF"}}>
+           style={{ backgroundColor: "#E0E7FF"}}>
         {/*<div className="col-md-12">*/}
           <div className=" mx-auto mx-0 p-4 pt-0 login" style={{width: "350px"}}>
             {/*<img*/}

@@ -6,7 +6,6 @@ import ContentHeader from "./ContentHeader";
 import MyClassService from "../../services/myClass.service";
 import './myclasses.css';
 import {Offcanvas} from "react-bootstrap";
-import {AiOutlineMenuUnfold} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import {FcFolder} from "react-icons/fc";
 
@@ -59,7 +58,7 @@ const MyClasses = () => {
           </div>
           <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header closeButton
-                              style={{backgroundColor:" #ECF6FF"}}
+                              style={{backgroundColor:" #E0E7FF"}}
             >
             </Offcanvas.Header>
             <Offcanvas.Body className={"p-0"} style={{width:"auto"}} scroll={false}>
@@ -95,6 +94,13 @@ const MyClasses = () => {
               />
               <Content
                 activeMyClass={activeMyClass}
+                // activeDeck={activeDeck}
+                // setActiveDeck={setActiveDeck}
+                // decks={decks}
+                // fetchCards={fetchCards}
+                // activeCard={activeCard}
+                // setActiveCard={setActiveCard}
+                // activeCards={activeCards}
               />
             </div>
           }

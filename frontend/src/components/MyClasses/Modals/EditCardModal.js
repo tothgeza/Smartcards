@@ -26,14 +26,14 @@ const EditCardModal = ({show, setShow, activeCard, setActiveCard}) => {
       dialogClassName="modal-70w"
     >
       <div className="modal-header d-flex flex-column px-5 pt-4 pb-0"
-           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h4 className="modal-title text-center mb-3" id="addClassModalLabel" style={{display: "block"}}>
           Edit Card
         </h4>
       </div>
-      <div className="modal-body edit-card" style={{backgroundColor: "#ECF6FF"}}>
+      <div className="modal-body edit-card" style={{backgroundColor: "#F3F3F3"}}>
         <div className="container-fluid h-100">
           <Form className="row h-100"
                 onSubmit={(event) => handleSubmitEditCard(event, activeCard)}>

@@ -8,12 +8,13 @@ import {SwitchTransition, CSSTransition} from "react-transition-group";
 import ReactCardFlip from 'react-card-flip';
 import EditCardModal from "./EditCardModal";
 
-const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index, setIndex}) => {
-  const [isAnswer, setIsAnswer] = useState(false);
-  const [nextCard, setNextCard] = useState(false);
+const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index, setIndex,
+                      isAnswer, setIsAnswer, nextCard, setNextCard, isFlipped, setIsFlipped}) => {
+  // const [isAnswer, setIsAnswer] = useState(false);
+  // const [nextCard, setNextCard] = useState(false);
   const [charSize, setCharSize] = useState(22)
   const [showEditCardModal, setShowEditCardModal] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
+  // const [isFlipped, setIsFlipped] = useState(false);
 
   const openEditCardModal = (event, card) => {
     event.preventDefault();
@@ -40,12 +41,13 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
   let contentStyle = {
     fontWeight: "500",
     fontSize: charSize + "px",
+    whiteSpace:"pre-line"
   }
 
   const increaseCharSize = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    if (charSize >= 12 && charSize <= 128)
+    if (charSize <= 128)
       setCharSize(charSize + 2)
     console.log(charSize)
   }
@@ -53,13 +55,13 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
   const decreaseCharSize = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    if (charSize >= 12 && charSize <= 128)
+    if (charSize >= 12)
       setCharSize(charSize - 2)
     console.log(charSize)
   }
 
   return (
-    <div>
+    <div style={{overflow:"hidden"}}>
       <Modal show={show}
              onHide={close}
              fullscreen={true}
@@ -67,12 +69,12 @@ const StudyModal = ({cards, activeCard, setActiveCard, show, close, deck, index,
       >
         <Modal.Body className={"p-0"}>
           <div className="container-fluid h-100 p-0"
-               style={{overflowX: "hidden"}}
+               style={{overflow: "hidden"}}
           >
             <div className={"h-100 d-flex flex-column align-item-center"}
                  style={{backgroundColor: "#F5F5F5"}}
             >
-              <div className="container-xxl">
+              <div className="container-xxl ">
                 <div className="row mt-4 align-items-center">
                   <div className="col">
                     <Link to={"/#0"} className={"link-icon"} onClick={(event) => close(event)}>

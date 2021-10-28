@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {Form, FormControl, Modal, ModalBody} from "react-bootstrap";
+import {FormControl, Modal, ModalBody} from "react-bootstrap";
 import {GoPencil, GoTrashcan} from "react-icons/go";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import EditCardModal from "./EditCardModal";
@@ -45,7 +45,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
         // style={{backgroundColor: "#f6f3f0" }}
       >
         <ModalHeader className="d-flex flex-column px-5 pt-4 card-preview"
-                     style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+                     style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
           <button type="button" className="btn-close"
                   onClick={() => closeModal()}/>
           <h4 className="modal-title text-center mb-3" id="addClassModalLabel"
@@ -61,7 +61,7 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
           </div>
         </ModalHeader>
         <ModalBody className="px-5 pb-5 pt-0"
-                   style={{backgroundColor: "#ECF6FF"}}>
+                   style={{backgroundColor: "#F3F3F3"}}>
           {cards.filter(card => {
             return card.question.toLowerCase().includes(keyword.toLowerCase()) ||
               card.answer.toLowerCase().includes(keyword.toLowerCase())
@@ -72,10 +72,10 @@ const CardsPreviewModal = ({deck, cards, activeCard, setActiveCard, show, closeM
                   <p className="my-auto" style={{color: "#a7b2bd"}}>{index + 1}</p>
                 </div>
                 <div className="col px-4 py-4 card-left-border d-flex align-items-center">
-                  <p className="my-auto" style={{fontSize: "14px"}}>{card.question}</p>
+                  <p className="my-auto" style={{fontSize: "14px", whiteSpace:"pre-line"}}>{card.question}</p>
                 </div>
                 <div className="col px-4 py-4 card-right-border d-flex align-items-center">
-                  <p className="my-auto" style={{fontSize: "14px"}}>{card.answer}</p>
+                  <p className="my-auto" style={{fontSize: "14px", whiteSpace:"pre-line"}}>{card.answer}</p>
                 </div>
                 <div className="col mx-auto" style={{maxWidth: "40px"}}>
                   <div>

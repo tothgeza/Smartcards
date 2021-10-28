@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {IoAddOutline, IoSearchOutline} from 'react-icons/io5';
 import MyClassService from "../../services/myClass.service";
+import PublicDeckService from "../../services/publicdeck.service";
 import Modals from "./Modals/modals";
+import PublicDecksModal from "./Modals/PublicDecksModal";
 import './sidenav.css';
 import {FcFolder, FcOpenedFolder} from 'react-icons/fc';
 import {Link} from "react-router-dom";
@@ -9,6 +11,9 @@ import {Link} from "react-router-dom";
 const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyClass, myClasses}) => {
 
   const [showCreateMyClassModal, setShowCreateMyClassModal] = useState(false);
+  const [showFindFlashcardsModal, setShowFindFlashcardsModal] = useState(false);
+  const [publicDecks, setPublicDecks] = useState([]);
+  const [keyword, setKeyword] = useState('');
 
   const openCreateMyClassModal = (event) => {
     event.preventDefault();
@@ -29,6 +34,35 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyCl
       .then(result => setActiveMyClass(result.data))
       .then(() => setIsActiveMyClass(true));
     fetchMyClass()
+  }
+
+  // Find flashcards
+  const openFindFlashcardsModal = (event) => {
+    // event.preventDefault();
+    fetchDecks()
+    setShowFindFlashcardsModal(true);
+  }
+  const closeFindFlashcardsModal = () => {
+    // event.preventDefault();
+    setShowFindFlashcardsModal(false)
+    setKeyword('')
+  }
+  // const handleDownloadDeck = (event) => {
+  //   event.preventDefault();
+  //   DeckService.deleteDeck(activeDeck.id)
+  //     .then(() => setActiveDeck(""))
+  //     .then(() => setShowDeleteDeckModal(false));
+  // }
+
+  const fetchDecks = () => {
+    PublicDeckService.getDecks()
+      .then(function (result) {
+        if (result.status === 200) {
+          setPublicDecks(result.data);
+        } else {
+          setPublicDecks([]);
+        }
+      })
   }
 
   useEffect(() => {
@@ -105,7 +139,8 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyCl
           </p>
         </Link>
         {/*Search Decks Link*/}
-        <Link to={"#0"} className={"row ps-3 pe-0 mt-3 link-icon"}>
+        <Link to={"#0"} className={"row ps-3 pe-0 mt-3 link-icon"}
+        onClick={() => openFindFlashcardsModal()}>
           <div className="col-1 ms-3">
             <IoSearchOutline size={"1.3em"} style={{position: "relative", top: "-4px", left: "5px"}}/>
           </div>
@@ -125,6 +160,17 @@ const SideNav = ({activeMyClass, setActiveMyClass, setIsActiveMyClass, fetchMyCl
         submit={handleSubmitCreateMyClass}
         type={"Class"}
       />
+    <PublicDecksModal
+      show={showFindFlashcardsModal}
+      closeModal={closeFindFlashcardsModal}
+      publicDecks={publicDecks}
+      keyword={keyword}
+      setKeyword={setKeyword}
+      myClasses={myClasses}
+      activeMyClass={activeMyClass}
+      setActiveMyClass={setActiveMyClass}
+      setIsActiveMyClass={setIsActiveMyClass}
+    />
     </div>
     // </main>
   )

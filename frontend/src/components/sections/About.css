@@ -60,7 +60,8 @@
     height: 92%;
     z-index: 1;
     content: "";
-    background-color: #ECF6FF;
+    /*background-color: #ECF6FF;*/
+    background-color: #E0E7FF;
     transition: 0.5s;
 }
 
@@ -72,6 +73,6 @@
     height: 92%;
     z-index: 1;
     content: "";
-    background-color: #ECF6FF;
+    background-color: #E0E7FF;
     transition: 0.5s;
 }
