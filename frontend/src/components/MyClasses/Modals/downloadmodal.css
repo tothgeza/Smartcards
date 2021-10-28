@@ -1,0 +1,25 @@
+.download-deck .form-select:focus {
+    /*border-color: #0067C0;*/
+    /*box-shadow: none;*/
+    border-color: #BDBDBD;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #0067C0;
+    /*border-bottom-color: #0067C0;*/
+    box-shadow: none;
+}
+#delete-content .modal-content {
+    /*height: 60vh !important;*/
+    top: 20vh;
+    /*padding: 30px !important;*/
+}
+
+.modal-backdrop-card {
+    z-index: 1400;
+}
+.download-deck .form-select option{
+    background-color: #FFFFFF;
+}
+.download-deck .form-select ul:hover,
+.download-deck .form-select ul:focus{
+    background-color: #E0E7FF;
+}
