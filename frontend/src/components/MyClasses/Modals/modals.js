@@ -38,15 +38,17 @@ const deleteModal = ({active, show, setShow, submit, type}) => {
       backdropClassName={"modal-backdrop-delete"}
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel"
             style={{display: "block"}}>Caution</h3>
       </div>
       <div className="modal-body"
-           style={{backgroundColor: "#ECF6FF"}}>
-        {text(type)}
+           style={{backgroundColor: "#F3F3F3"}}>
+        <div className={"mx-1"}>
+          {text(type)}
+        </div>
         <div className="row text-center justify-content-md-center mt-4 mb-3">
           <div className="col my-auto d-flex justify-content-end">
             <Button onClick={() => setShow(false)}>Cancel</Button>
@@ -88,7 +90,7 @@ const createModal = ({show, setShow, submit, type}) => {
       dialogClassName="modal-position"
     >
       <div className="modal-header d-flex flex-column pb-0"
-           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
         <button type="button" className="btn-close"
                 onClick={() => setShow(false)}/>
         <h3 className="modal-title text-center" id="addClassModalLabel" style={{display: "block"}}>
@@ -96,7 +98,7 @@ const createModal = ({show, setShow, submit, type}) => {
         </h3>
       </div>
       <div className="modal-body modal-title"
-           style={{borderBottom: "0 none", backgroundColor: "#ECF6FF"}}>
+           style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
         {text(type)}
         <Form className="text-center" onSubmit={(event) => submit(event)}>
           <FormControl className="mb-3 mx-auto" type="text" name="newTitle"
@@ -112,7 +114,47 @@ const createModal = ({show, setShow, submit, type}) => {
   )
 }
 
+const shareModal = ({show, setShow, submit, title}) => {
+
+  return (
+    <Modal
+      show={show}
+      onHide={() => setShow(false)}
+      dialogClassName="modal-position"
+    >
+      <div className="modal-header d-flex flex-column pb-0"
+           style={{borderBottom: "0 none", backgroundColor: "#F3F3F3"}}>
+        <button type="button" className="btn-close"
+                onClick={() => setShow(false)}/>
+        <h3 className="modal-title text-center" id="addClassModalLabel"
+            style={{display: "block"}}>Share Deck</h3>
+      </div>
+      <div className="modal-body"
+           style={{backgroundColor: "#F3F3F3"}}>
+        <div className={"mx-auto"}>
+          <p className={"text-center text-muted"}>
+            Do you want to share {title} Deck?
+          </p>
+        </div>
+        <div className="row text-center justify-content-md-center mt-4 mb-3">
+          <div className="col my-auto d-flex justify-content-end">
+            <a href="#0" className={"me-3"}
+               onClick={() => setShow(false)}>
+              Cancel
+            </a>
+          </div>
+          <div className="col my-auto d-flex justify-content-start ps-0">
+            <Button size="lg"
+                    onClick={(event) => submit(event)}>Share
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  )
+}
 export default {
   deleteModal,
   createModal,
+  shareModal,
 }

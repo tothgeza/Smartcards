@@ -4,13 +4,14 @@ import {Dropdown, Form, Button, InputGroup, FormControl} from "react-bootstrap";
 
 import DeckService from "../../services/deck.service";
 import CardService from "../../services/card.service";
+import PublicDeckService from "../../services/publicdeck.service";
 
 import Modals from "./Modals/modals";
 import CardsPreviewModal from "./Modals/CardsPreviewModal";
 import StudyModal from "./Modals/StudyModal";
 import AddCardModal from "./Modals/AddCardModal";
 
-import {IoAlbumsSharp, IoPencilSharp, IoEye} from "react-icons/io5";
+import {IoAlbumsSharp, IoPencilSharp, IoEye, IoShareSocialSharp} from "react-icons/io5";
 import {GoPlus, GoPlay, GoTrashcan} from "react-icons/go";
 import {BsGearFill} from "react-icons/bs";
 import "./content.css"
@@ -22,6 +23,7 @@ const Content = ({activeMyClass}) => {
 
   const [showCreateDeckModal, setShowCreateDeckModal] = useState(false);
   const [showDeleteDeckModal, setShowDeleteDeckModal] = useState(false);
+  const [showShareDeckModal, setShowShareDeckModal] = useState(false);
   const [isEditDeckTitleActive, setIsEditDeckTitleActive] = useState(false);
 
   const [activeCards, setActiveCards] = useState([]);
@@ -31,6 +33,9 @@ const Content = ({activeMyClass}) => {
   const [keyword, setKeyword] = useState('');
 
   const [showStudyModal, setShowStudyModal] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(false);
+  const [nextCard, setNextCard] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
   const [index, setIndex] = useState(0);
 
   const [showAddCardModal, setShowAddCardModal] = useState(false);
@@ -49,6 +54,19 @@ const Content = ({activeMyClass}) => {
       .then(result => setActiveDeck(result.data))
   }
 
+  // Share Deck functions
+  const openShareDeckModal = (event, deck) => {
+    event.preventDefault();
+    setActiveDeck(deck);
+    setShowShareDeckModal(true);
+  }
+
+  const handleSubmitShareDeck = (event) => {
+    event.preventDefault();
+    PublicDeckService.shareDeck(activeDeck.id)
+      .then(() => setActiveDeck(""))
+      .then(() => setShowShareDeckModal(false));
+  }
   // Delete Deck functions
   const openDeleteDeckModal = (event, deck) => {
     event.preventDefault();
@@ -90,14 +108,13 @@ const Content = ({activeMyClass}) => {
     setShowPreviewCardsModal(false)
     setKeyword('')
   }
+
   // Show Study Modal
   const openStudyCardsModal = async (event, deck) => {
     event.preventDefault();
     await setActiveDeck(deck)
-    console.log("Start fetch..")
     await fetchCards(deck)
     setShowStudyModal(true)
-    console.log("Show study modal..")
   }
 
   const closeStudyModal = (event) => {
@@ -105,6 +122,9 @@ const Content = ({activeMyClass}) => {
     setIndex(0);
     setShowStudyModal(false);
     setActiveDeck('')
+    setIsAnswer(false);
+    setNextCard(false);
+    setIsFlipped(false);
   }
 
   // Show Add Card Modal
@@ -146,7 +166,6 @@ const Content = ({activeMyClass}) => {
     CardService.getCards(deck.id)
       .then(function (result) {
         if (result.status === 200) {
-          console.log(result.data)
           setActiveCards(result.data);
         } else {
           setActiveCards([]);
@@ -246,6 +265,16 @@ const Content = ({activeMyClass}) => {
                         </div>
                       </Dropdown.Item>
                       <Dropdown.Item href="#0"
+                                     onClick={(event) => openShareDeckModal(event, deck)}>
+                        <div className="d-flex flex-row p-0 m-0" style={{color: "#757575"}}>
+                          <IoShareSocialSharp style={{
+                            position: "relative",
+                            top: "2px"
+                          }}/>
+                          <p className="ms-2 mb-0" style={{fontSize: "14px"}}> Share Deck</p>
+                        </div>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#0"
                                      onClick={(event) => openDeleteDeckModal(event, deck)}>
                         <div className="d-flex flex-row p-0 m-0" style={{color: "#757575"}}>
                           <GoTrashcan style={{position: "relative", top: "1px"}}/>
@@ -327,6 +356,12 @@ const Content = ({activeMyClass}) => {
         deck={activeDeck}
         index={index}
         setIndex={setIndex}
+        isAnswer={isAnswer}
+        setIsAnswer={setIsAnswer}
+        nextCard={nextCard}
+        setNextCard={setNextCard}
+        isFlipped={isFlipped}
+        setIsFlipped={setIsFlipped}
       />
 
       <AddCardModal
@@ -337,6 +372,12 @@ const Content = ({activeMyClass}) => {
         activeCard={activeCard}
         setActiveCard={setActiveCard}
 
+      />
+      <Modals.shareModal
+        show={showShareDeckModal}
+        setShow={setShowShareDeckModal}
+        submit={handleSubmitShareDeck}
+        title={activeDeck.title}
       />
     </>
 
